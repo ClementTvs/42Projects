@@ -6,13 +6,13 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 08:55:10 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/04 16:06:45 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:58:45 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	ft_strlen(char *str)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -41,18 +41,3 @@ char	*ft_strdup(const char *s)
 	dest[i] = '\0';
 	return (dest);
 }
-/*
-#include <stdio.h>
-int	main(int argc, char *argv[])
-{
-	if (argc > 0)
-	{
-		if (argc == 1)
-			return (0);
-		char	*dest = ft_strdup(argv[1]);
-		if (dest == 0)
-			return (0);
-		printf("%s\n", dest);
-		free(dest);
-	}
-}*/

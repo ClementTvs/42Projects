@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 11:22:05 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/05 13:27:14 by ctravers         ###   ########.fr       */
+/*   Created: 2024/11/05 08:10:15 by ctravers          #+#    #+#             */
+/*   Updated: 2024/11/05 08:27:54 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	a;
-	int	signe;
+#include <stdlib.h>
 
-	a = 0;
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	i;
+
 	i = 0;
-	signe = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	while (str[i] == 45 || str[i] == 43)
+	while (i < n)
 	{
-		if (str[i] == 45)
-			signe *= -1;
+		((char *)s)[i] = c;
 		i++;
 	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		a = a * 10 + (str[i] - 48);
-		i++;
-	}
-	return (a * signe);
+	return (s);
 }

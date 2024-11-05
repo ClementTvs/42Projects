@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 11:22:05 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/05 13:27:14 by ctravers         ###   ########.fr       */
+/*   Created: 2024/11/05 14:13:31 by ctravers          #+#    #+#             */
+/*   Updated: 2024/11/05 14:28:47 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	a;
-	int	signe;
+#include <stdlib.h>
 
-	a = 0;
-	i = 0;
-	signe = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	while (str[i] == 45 || str[i] == 43)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	const unsigned char *p1;
+	const unsigned char *p2;
+	size_t	cmp;
+
+	cmp = 0;
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	while (cmp < n)
 	{
-		if (str[i] == 45)
-			signe *= -1;
-		i++;
+		if (p1[cmp] != p2[cmp])
+			return (p1[cmp] - p2[cmp]);
+		cmp++;
 	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		a = a * 10 + (str[i] - 48);
-		i++;
-	}
-	return (a * signe);
+	return (0);
 }

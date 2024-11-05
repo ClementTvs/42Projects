@@ -1,36 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 11:22:05 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/05 13:27:14 by ctravers         ###   ########.fr       */
+/*   Created: 2024/11/05 09:57:25 by ctravers          #+#    #+#             */
+/*   Updated: 2024/11/05 12:59:30 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	a;
-	int	signe;
+#include <stdlib.h>
 
-	a = 0;
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
 	i = 0;
-	signe = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	while (s[i])
 		i++;
-	while (str[i] == 45 || str[i] == 43)
+	return (i);
+}
+
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = ft_strlen(dest);
+	if (j >= size)
 	{
-		if (str[i] == 45)
-			signe *= -1;
+		return (j + ft_strlen(src));
+	}
+	while (src[i] && (j + i + 1 < size))
+	{
+		dest[j + i] = src[i];
 		i++;
 	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		a = a * 10 + (str[i] - 48);
-		i++;
-	}
-	return (a * signe);
+	dest[j + i] = '\0';
+	return (j + ft_strlen(src));
 }
