@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 08:36:08 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/06 09:30:59 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/08 10:45:34 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*tab;
 
 	if (nmemb == 0 || size == 0)
-		return (0);
+		return (malloc(0));
 	else if (nmemb > ((size_t) - 1) / size)
 		return (0);
 	tab = malloc(nmemb * size);

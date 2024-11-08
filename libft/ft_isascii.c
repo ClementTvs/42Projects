@@ -6,13 +6,13 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 13:11:26 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/05 13:13:20 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/08 09:33:21 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	isascii(int c)
+int	ft_isascii(int c)
 {
-	if (c > 0 || c < 127)
-		return (0);
-	return (1);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

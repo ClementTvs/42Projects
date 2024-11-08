@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:22:05 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/05 13:27:14 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/08 10:43:20 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_atoi(const char *str)
 	signe = 1;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
-	while (str[i] == 45 || str[i] == 43)
+	if (str[i] == 45 || str[i] == 43)
 	{
 		if (str[i] == 45)
 			signe *= -1;

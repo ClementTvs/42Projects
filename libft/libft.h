@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 09:13:42 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/08 08:45:27 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/08 09:20:27 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int				ft_isalnum(int c);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
 int				ft_isprint(int c);
-int				isascii(int c);
+int				ft_isascii(int c);
 int				ft_atoi(const char *str);
 void			*ft_memmove(void *dest, const void *src, size_t n);
 char			*ft_strjoin(char const *s1, char const *s2);

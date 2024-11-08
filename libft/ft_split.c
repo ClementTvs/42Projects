@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:09:47 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/07 11:22:31 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:19:55 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,33 @@
 
 static	size_t	wordcnt(const char *s, char c)
 {
-	int		i;
+	size_t	i;
 	size_t	j;
 
 	i = 0;
 	j = 0;
+	while (s[i] == c)
+		i++;
+	if (i == ft_strlen(s))
+		return (0);
+	else
+		j++;
 	while (s[i])
 	{
-		while (s[i] == c)
-			i++;
-		if (i > 0 && s[i] && s[i - 1] == c)
+		if (i > 0 && s[i] && s[i] == c && s[i - 1] != c && s[i + 1] != '\0')
+			j++;
+		if (s[i + 1] == '\0' && s[i] != c)
 			j++;
 		if (s[i])
 			i++;
 	}
-	if (j == 0 && s[i - 1] == c)
-		return (0);
-	if (s[0] != c)
-		j++;
 	return (j);
 }
 
 static int	allocsstr(size_t i, char **sstr, size_t cmp)
 {
-	sstr[i] = malloc(sizeof(char) * cmp + 1);
-	if (sstr == 0)
+	sstr[i] = malloc(sizeof(char) * (cmp + 1));
+	if (sstr[i] == 0)
 		return (0);
 	return (1);
 }
@@ -58,8 +60,7 @@ static char	**memalloc(char **sstr, char c, char const *s)
 			cmp++;
 		else if (j > 0 && s[j - 1] != c)
 		{
-			sstr[i] = malloc(sizeof(char) * (cmp + 1));
-			if (sstr[i] == 0)
+			if (!allocsstr(i, sstr, cmp))
 				return (0);
 			cmp = 0;
 			i++;
@@ -132,7 +133,7 @@ char	**ft_split(char const *s, char c)
 #include <stdio.h>
 int	main(void)
 {
-	char **result = ft_split("", ' ');
+	char **result = ft_split(" Tripouille 42 ", ' ');
 	size_t	i = 0;
 
 	while (result[i])
