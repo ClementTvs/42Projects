@@ -6,21 +6,11 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:32:50 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/05 14:44:11 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/06 09:25:26 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+#include "libft.h"
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
@@ -30,10 +20,10 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	i = 0;
 	if (little[i] == 0)
 		return ((char *)big);
-	while (i < len - 1)
+	while (i < len)
 	{
 		j = 0;
-		while (big[i + j] == little[j])
+		while (big[i + j] == little[j] && i + j < len)
 		{
 			j++;
 			if (j == ft_strlen(little))
@@ -44,15 +34,4 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		i++;
 	}
 	return (0);
-}
-
-#include <stdio.h>
-int	main()
-{
-	const char	*big = "Salut je marche ou pas ?";
-	const char	*little = "?";
-
-	char	*res = ft_strnstr(big, little, 24);
-
-	printf("%s", res);
 }

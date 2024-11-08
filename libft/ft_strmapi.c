@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 15:53:09 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/06 09:35:14 by ctravers         ###   ########.fr       */
+/*   Created: 2024/11/08 08:27:18 by ctravers          #+#    #+#             */
+/*   Updated: 2024/11/08 08:30:20 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
-	while (str[i])
+	while (s[i])
 	{
-		if (str[i] == c)
-		{
-			return ((char *)str + i);
-		}
+		s[i] = f(i, s[i]);
 		i++;
 	}
-	return (0);
+	return (s);
 }
