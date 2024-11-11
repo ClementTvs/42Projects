@@ -23,11 +23,9 @@ static	size_t	wordcnt(const char *s, char c)
 		i++;
 	if (i == ft_strlen(s))
 		return (0);
-	else
-		j++;
 	while (s[i])
 	{
-		if (i > 0 && s[i] && s[i] == c && s[i - 1] != c && s[i + 1] != '\0')
+		if (i > 0 && s[i] != c && s[i + 1] == c && s[i + 1] != '\0')
 			j++;
 		if (s[i + 1] == '\0' && s[i] != c)
 			j++;
@@ -89,7 +87,7 @@ static char	**fill(char **sstr, char c, const char *s)
 			sstr[x][j] = s[i];
 			j++;
 		}
-		else if (s[i - 1] != c && i > 0)
+		else if (i > 0 && s[i - 1] != c)
 		{
 			sstr[x][j] = '\0';
 			j = 0;
@@ -126,14 +124,14 @@ char	**ft_split(char const *s, char c)
 		free(sstr);
 		return (0);
 	}
-	sstr[wordcount] = 0;
+	sstr[wordcount] = NULL;
 	return (sstr);
 }
 /*
 #include <stdio.h>
 int	main(void)
 {
-	char **result = ft_split(" Tripouille 42 ", ' ');
+	char **result = ft_split(" Tripouille ", ' ');
 	size_t	i = 0;
 
 	while (result[i])

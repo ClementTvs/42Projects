@@ -17,7 +17,7 @@ static size_t	ft_intlen(int n)
 	size_t	intlen;
 
 	intlen = 0;
-	if (n < 0)
+	if (n <= 0)
 	{
 		if (n == -2147483648)
 		{
@@ -34,22 +34,22 @@ static size_t	ft_intlen(int n)
 	return (intlen);
 }
 
-static char	*gogotransfo(char *str, int n, size_t len)
+static char	*gogotransfo(char *str, long n, size_t len)
 {
 	int	negative;
 
 	negative = 0;
-	str = malloc(sizeof(char) * (len + 1));
-	if (str == 0)
-		return (0);
 	if (n < 0)
 	{
-		if (n == -2147483648)
-			return ("-2147483648");
 		n *= -1;
 		negative++;
 	}
-	str[len + 1] = '\0';
+	str = malloc(sizeof(char) * (len + 1));
+	if (str == 0)
+		return (0);
+	str[len] = '\0';
+	if (n == 0)
+		str[0] = '0';
 	while (len - 1 > 0)
 	{
 		str[len - 1] = (n % 10) + 48;
@@ -70,6 +70,19 @@ char	*ft_itoa(int n)
 
 	str = 0;
 	len = ft_intlen(n);
-	str = gogotransfo(str, n, len);
+	str = gogotransfo(str, (long)n, len);
 	return (str);
 }
+/*
+#include <stdio.h>
+int	main()
+{
+	char	*str = ft_itoa(-1);
+	int	i = 0;
+
+	while (str[i])
+	{
+		printf("%c", str[i]);
+		i++;
+	}
+}*/
