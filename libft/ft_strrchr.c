@@ -6,13 +6,13 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:09:04 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/08 10:41:25 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/12 09:50:13 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strrchr(char *str, int c)
 {
-	int	i;
+	int				i;
 	unsigned char	uc;
 
 	i = 0;
