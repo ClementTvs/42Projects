@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:09:47 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/08 14:19:55 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/13 10:36:35 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,24 @@ static	size_t	wordcnt(const char *s, char c)
 
 static int	allocsstr(size_t i, char **sstr, size_t cmp)
 {
+	size_t	j;
+
+	j = 0;
 	sstr[i] = malloc(sizeof(char) * (cmp + 1));
 	if (sstr[i] == 0)
+	{
+		while (j < i)
+		{
+			free(sstr[j]);
+			j++;
+		}
+		free(sstr);
 		return (0);
+	}
 	return (1);
 }
 
-static char	**memalloc(char **sstr, char c, char const *s)
+static int	memalloc(char **sstr, char c, char const *s)
 {
 	size_t	cmp;
 	size_t	i;
@@ -68,7 +79,7 @@ static char	**memalloc(char **sstr, char c, char const *s)
 				return (0);
 		j++;
 	}
-	return (sstr);
+	return (1);
 }
 
 static char	**fill(char **sstr, char c, const char *s)
@@ -83,10 +94,7 @@ static char	**fill(char **sstr, char c, const char *s)
 	while (s[i])
 	{
 		if (s[i] != c)
-		{
-			sstr[x][j] = s[i];
-			j++;
-		}
+			sstr[x][j++] = s[i];
 		else if (i > 0 && s[i - 1] != c)
 		{
 			sstr[x][j] = '\0';
@@ -117,13 +125,9 @@ char	**ft_split(char const *s, char c)
 	sstr = malloc(sizeof(char *) * (wordcount + 1));
 	if (sstr == 0)
 		return (0);
-	if (memalloc(sstr, c, s) != 0)
-		fill(sstr, c, s);
-	else
-	{
-		free(sstr);
+	if (!memalloc(sstr, c, s))
 		return (0);
-	}
+	fill(sstr, c, s);
 	sstr[wordcount] = NULL;
 	return (sstr);
 }
@@ -131,7 +135,7 @@ char	**ft_split(char const *s, char c)
 #include <stdio.h>
 int	main(void)
 {
-	char **result = ft_split(" Tripouille ", ' ');
+	char **result = ft_split("hello!", ' ');
 	size_t	i = 0;
 
 	while (result[i])

@@ -6,7 +6,7 @@
 /*   By: ctravers <ctravers@student.42perpignan.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:25:03 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/11 12:39:16 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/13 10:42:57 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_list	*ft_lstlast(t_list *lst)
 int	main()
 {
 	t_list n, n1, n2;
-n.content = malloc(sizeof(int));
-    n1.content = malloc(sizeof(int));
-    n2.content = malloc(sizeof(int));
+	n.content = malloc(sizeof(int));
+    	n1.content = malloc(sizeof(int));
+    	n2.content = malloc(sizeof(int));
 
 	*(int *)n.content = 45;
 	*(int *)n1.content = 42;
