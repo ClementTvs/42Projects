@@ -6,99 +6,121 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:42:08 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/15 13:57:30 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:17:20 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 #include "../include/libft.h"
 
-void	ft_puthex(unsigned long num, char c)
+int	ft_put_ptr(unsigned long num)
 {
-	char *hexa_digits;
-	
-	if (c == 'X')
-		hexa_digits = "0123456789ABCDEF";
-	else
-		hexa_digits = "0123456789abcdef";
+	int		len;
+	char	*hexa_digits;
+
+	len = 0;
+	hexa_digits = "0123456789abcdef";
 	if (num >= 16)
-		ft_puthex(num / 16, c);
-	ft_putchar_fd(hexa_digits[num % 16], 1);
+		len += ft_put_ptr(num / 16);
+	len += ft_putchar(hexa_digits[num % 16]);
+	return (len);
 }
 
-void	ft_putaddr(void *ptr)
+int	ft_putaddr(void *ptr)
 {
-	unsigned long addr = (unsigned long)ptr;
+	unsigned long	addr;
+	int				len;
 
-	ft_putchar_fd('0', 1);
-	ft_putchar_fd('x', 1);
-	ft_puthex(addr, 'x');
+	len = 0;
+	addr = (unsigned long)ptr;
+	if (addr == 0)
+	{
+		len += ft_putstr("(nil)");
+		return (len);
+	}
+	len += ft_putchar('0');
+	len += ft_putchar('x');
+	len += ft_put_ptr(addr);
+	return (len);
 }
 
-void	ft_putnbr_fd_unsigned(unsigned int n, int fd)
+int	ft_putnbr_unsigned(unsigned int n)
 {
 	int	div;
 	int	mod;
+	int	len;
 
 	div = n / 10;
 	mod = n % 10;
+	len = 0;
 	if (n > 9)
 	{
-		ft_putnbr_fd(div, fd);
-		ft_putnbr_fd(mod, fd);
+		len += ft_putnbr_unsigned(div);
+		len += ft_putnbr_unsigned(mod);
 	}
 	else
-		ft_putchar_fd(n + 48, fd);
+	{
+		ft_putchar(n + 48);
+		len++;
+	}
+	return (len);
 }
 
 int	whatformat(char c, va_list args)
 {
+	int	len;
+
+	len = 0;
 	if (c == 'c')
-		ft_putchar_fd(((char)va_arg(args, int)), 1);
+		len += ft_putchar(((char)va_arg(args, int)));
 	if (c == 's')
-		ft_putstr_fd((va_arg(args, char *)), 1);
+		len += ft_putstr((va_arg(args, char *)));
 	if (c == 'p')
-		ft_putaddr(va_arg(args, void *));
+		len += ft_putaddr(va_arg(args, void *));
 	if (c == 'd' || c == 'i')
-		ft_putnbr_fd(va_arg(args, int), 1);
+		len += ft_putnbr(va_arg(args, int), len);
 	if (c == 'u')
-		ft_putnbr_fd_unsigned(va_arg(args, unsigned int), 1);
+		len += ft_putnbr_unsigned(va_arg(args, unsigned int));
 	if (c == 'x')
-		ft_puthex(va_arg(args, unsigned long), c);
+		len += ft_puthex(va_arg(args, unsigned int), c);
 	if (c == 'X')
-		ft_puthex(va_arg(args, unsigned long), c);
+		len += ft_puthex(va_arg(args, unsigned int), c);
 	if (c == '%')
-		ft_putchar_fd('%', 1);
-	return (0);
+		len += ft_putchar('%');
+	return (len);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	size_t	i;
-	va_list args;
+	va_list	args;
+	int		len;
 
 	i = 0;
+	len = 0;
 	va_start(args, format);
 	while (format[i])
 	{
-		if (format[i - 1] == '%' && format[i - 2] != '%')
+		if (format[i] == '%')
 		{
-			whatformat(format[i], args);
+			len += whatformat(format[i + 1], args);
+			i++;
 		}
-		else if (format[i] != '%')
-			ft_putchar_fd(format[i], 1);
+		else
+			len += ft_putchar(format[i]);
 		i++;
 	}
 	va_end(args);
-	return (0);
+	return (len);
 }
 /*
 #include <stdio.h>
 int	main()
 {
-	//int x = 42;
+	int x;
 	//int *ptr = &x;
-	long	num = 4294967295;
-	ft_printf("%u\n", (unsigned int)num);
-	printf("%u\n", (unsigned int)num);
+	x = ft_printf(" %x ", LONG_MAX);
+	printf("%i", x);
+	x = printf(" %lx ", LONG_MAX);
+	printf("%i", x);
 }*/

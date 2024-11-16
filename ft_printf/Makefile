@@ -6,7 +6,7 @@
 #    By: ctravers <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/13 13:03:53 by ctravers          #+#    #+#              #
-#    Updated: 2024/11/15 11:27:15 by ctravers         ###   ########.fr        #
+#    Updated: 2024/11/16 11:17:43 by ctravers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,14 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I
 AR = ar rcs
 
-SRC_FILES = ft_printf
+SRC_FILES = ft_printf ft_printf2
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-all: $(OBJF) $(NAME)
+OBJF = .cache_exists
+
+all: $(NAME)
 
 $(NAME): $(OBJ)
 		@make -C $(LIBFT)

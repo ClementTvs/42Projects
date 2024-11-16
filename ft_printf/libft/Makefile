@@ -1,6 +1,6 @@
 NAME = libft.a
 
-INCLUDES = ../include
+INCLUDE = ../include
 
 SRC = 	ft_isalpha.c \
 	ft_isdigit.c \
@@ -49,7 +49,7 @@ BONUS = ft_lstnew_bonus.c \
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES)
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE)
 
 OBJ = $(SRC:.c=.o)
 
@@ -67,10 +67,10 @@ bonus: $(OBJB)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ) $(OBJB)
+	@rm -f $(OBJ) $(OBJB)
 
 fclean : clean
-	rm  -f $(NAME)
+	@rm  -f $(NAME)
 
 re : fclean all
 
