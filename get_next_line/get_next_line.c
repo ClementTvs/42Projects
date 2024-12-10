@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 09:21:53 by ctravers          #+#    #+#             */
-/*   Updated: 2024/11/22 10:01:45 by ctravers         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:20:00 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char	*get_next_line(int fd)
 	buf = deldoneline(buf);
 	return (line);
 }
-/*
+
 #include <fcntl.h>
 #include <stdio.h>
 int	main(void)
@@ -138,7 +138,8 @@ int	main(void)
 	while (i < 7)
 	{
 		line = get_next_line(fd1);
-		printf("line [%02d]: %s", i, line);
+		printf("%s", line);
+		//printf("line [%02d]: %s", i, line);
 		free(line);
 		//line = get_next_line(fd2);
 		//printf("line [%02d]: %s", i, line);
@@ -152,4 +153,4 @@ int	main(void)
 	//close(fd2);
 	//close(fd3);
 	return (0);
-}*/
+}
