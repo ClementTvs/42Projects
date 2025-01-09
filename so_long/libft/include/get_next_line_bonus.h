@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:14:36 by ctravers          #+#    #+#             */
-/*   Updated: 2024/12/19 09:59:22 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:34:53 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ char	*deldoneline(char *buffer);
 void	*free_memory(char *buffer, char *res);
 char	*readfile(int fd, char *res, ssize_t readb);
 char	*ft_free(char *buffer, char *buf);
-char	*ft_strjoin(char *s1, char *s2);
-void	*ft_memmove(void *dest, const void *src, size_t n);
-int		ft_strchr(const char *str, int c);
-int		ft_strlen(char *str);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+void	*ft_memmove_gnl(void *dest, const void *src, size_t n);
+int		ft_strchr_gnl(const char *str, int c);
+int		ft_strlen_gnl(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:11:32 by ctravers          #+#    #+#             */
-/*   Updated: 2024/12/19 09:56:04 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:04:43 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*deldoneline(char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	line = malloc((ft_strlen(buffer) - i + 1) * sizeof(char));
+	line = malloc((ft_strlen_gnl(buffer) - i + 1) * sizeof(char));
 	if (!line)
 		return (NULL);
 	i++;
@@ -67,7 +67,7 @@ char	*readfile(int fd, char *res, ssize_t readb)
 			return (free_memory(buffer, res));
 		buffer[readb] = '\0';
 		res = ft_free(res, buffer);
-		if (!res || ft_strchr(buffer, '\n'))
+		if (!res || ft_strchr_gnl(buffer, '\n'))
 			break ;
 	}
 	free(buffer);

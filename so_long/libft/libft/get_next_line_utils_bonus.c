@@ -6,13 +6,13 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:15:34 by ctravers          #+#    #+#             */
-/*   Updated: 2024/12/19 09:59:02 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:34:11 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/get_next_line_bonus.h"
 
-int	ft_strlen(char *str)
+int	ft_strlen_gnl(char *str)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int	ft_strchr(const char *str, int c)
+int	ft_strchr_gnl(const char *str, int c)
 {
 	unsigned char	uc;
 	int				i;
@@ -42,7 +42,7 @@ int	ft_strchr(const char *str, int c)
 	return (0);
 }
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+void	*ft_memmove_gnl(void *dest, const void *src, size_t n)
 {
 	unsigned char		*d;
 	const unsigned char	*s;
@@ -71,7 +71,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	size_t	lens1;
 	size_t	lens2;
@@ -84,14 +84,14 @@ char	*ft_strjoin(char *s1, char *s2)
 		return ((char *)s2);
 	else if (s2 == 0)
 		return ((char *)s1);
-	lens1 = ft_strlen(s1);
-	lens2 = ft_strlen(s2);
+	lens1 = ft_strlen_gnl(s1);
+	lens2 = ft_strlen_gnl(s2);
 	lentot = lens1 + lens2;
 	strr = malloc((lentot + 1) * sizeof(char));
 	if (strr == 0)
 		return (0);
-	ft_memmove(strr, s1, lens1);
-	ft_memmove(strr + lens1, s2, lens2);
+	ft_memmove_gnl(strr, s1, lens1);
+	ft_memmove_gnl(strr + lens1, s2, lens2);
 	strr[lentot] = '\0';
 	return (strr);
 }
@@ -100,7 +100,7 @@ char	*ft_free(char *buffer, char *buf)
 {
 	char	*temp;
 
-	temp = ft_strjoin(buffer, buf);
+	temp = ft_strjoin_gnl(buffer, buf);
 	if (!temp)
 	{
 		free(buffer);

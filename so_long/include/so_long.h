@@ -5,6 +5,11 @@
 # include <X11/keysym.h>
 # include "../minilibx-linux/mlx.h"
 # include "../libft/include/ft_printf.h"
+# include "../libft/include/libft.h"
+# include "../libft/include/get_next_line_bonus.h"
+# include <fcntl.h>
+# include <unistd.h>
+
 
 typedef struct	s_img
 {
