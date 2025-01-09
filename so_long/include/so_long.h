@@ -42,4 +42,15 @@ typedef struct	s_data
 	t_map	map;
 }		t_data;
 
+void    close_win(t_data *data);
+int     key_press(int keysym, t_data *data);
+int     close_cross(t_data *data);
+char    *read_line(int fd);
+int     count_map_height(char *file);
+int     init_map(t_map *map, char *file);
+int     check_line_length(char *line, int width);
+void    free_map(char **grid, int height);
+int     load_map_lines(t_data *data, int fd);
+int     read_map(t_data *data, char *file);
+
 #endif
