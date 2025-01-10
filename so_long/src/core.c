@@ -6,12 +6,11 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:15:08 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/10 11:04:59 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/10 19:03:32 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
 
 /*
 Used by: key_press, close_cross
@@ -373,7 +372,12 @@ int	main(int argc, char *argv[])
 		ft_printf("Failed to initialize MLX\n");
 		return (1);
 	}
-	data.win = mlx_new_window(data.mlx, 1920, 1080, "so_long");
+	if (!load_textures(&data))
+	{
+		ft_printf("Failed to load texture\n");
+		return (1);
+	}
+	data.win = mlx_new_window(data.mlx, data.map.width * 32, data.map.height * 32, "so_long");
 	if (!data.win)
 	{
 		ft_printf("Failed to create Window\n");
@@ -381,6 +385,7 @@ int	main(int argc, char *argv[])
 		free(data.mlx);
 		return (1);
 	}
+	render_map(&data);
 	mlx_key_hook(data.win, key_press, &data);
 	mlx_hook(data.win, 17, 0, close_cross, &data);
 	mlx_loop(data.mlx);

@@ -10,9 +10,11 @@ LIBFTDIR = libft
 MLXDIR = minilibx-linux
 
 # Fichiers sources et objets
-SRC = $(SRCDIR)/core.c \
+SRC = 	$(SRCDIR)/core.c \
+	$(SRCDIR)/render.c \
 
-OBJ = $(OBJDIR)/core.o \
+OBJ = 	$(OBJDIR)/core.o \
+ 	$(OBJDIR)/render.o \
 
 # Librairies
 LIBFT = $(LIBFTDIR)/libft.a
@@ -28,6 +30,10 @@ $(NAME): $(OBJ) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFTDIR) -L$(MLXDIR) -lftprintf -lmlx -lXext -lX11 -o $(NAME)
 
 # Compilation des objets
+$(OBJDIR)/render.o: $(SRCDIR)/render.c $(INCDIR)/so_long.h
+	mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLXDIR) -c $< -o $@
+
 $(OBJDIR)/core.o: $(SRCDIR)/core.c $(INCDIR)/so_long.h
 	mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLXDIR) -c $< -o $@

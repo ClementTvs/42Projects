@@ -16,7 +16,7 @@ typedef struct	s_img
 	void	*wall;
 	char	*floor;
 	int	*player;
-	int	*collect;
+	int	*collectible;
 	int	*exit;
 	int	width;
 	int	height;
@@ -54,5 +54,13 @@ int     check_line_length(char *line, int width);
 void    free_map(char **grid, int height);
 int     load_map_lines(t_data *data, int fd);
 int     read_map(t_data *data, char *file);
+void    put_image(t_data *data, void *img, int x, int y);
+int     load_textures(t_data *data);
+void    render_map(t_data *data);
+int	check_walls(t_map *map);
+int	check_chars(t_map *map);
+void	count_specials(t_map *map, int *p, int *e, int *c);
+int	validate_map(t_data *data);
+void	find_player(t_data *data);
 
 #endif
