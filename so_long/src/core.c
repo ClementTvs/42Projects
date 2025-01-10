@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:15:08 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/09 11:36:13 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:04:59 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,142 @@ int	read_map(t_data *data, char *file)
 	return (1);
 }
 
+/*
+Used by: validate_map
+Use: Nothing
+
+Check if the map has wall all around it
+*/
+int	check_walls(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->height)
+	{
+		if (map->grid[i][0] != '1' || map->grid[i][map->width - 1] != '1')
+			return (0);
+		i++;
+	}
+	i = 0;
+	while (i < map->width)
+	{
+		if (map->grid[0][i] != '1' || map->grid[map->height - 1][i] != '1')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+/*
+Used by: validate_map
+Use: Nothing
+
+Check if there is chars that are not supposed to be there
+*/
+int	check_chars(t_map *map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (!ft_strchr("01CEP", map->grid[y][x]))
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
+/*
+Used by: validate_map
+Use: Nothing
+
+Count how many P, C and E are on the map
+*/
+void	count_specials(t_map *map, int *p, int *e, int *c)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	*p = 0;
+	*e = 0;
+	*c = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->grid[y][x] == 'P')
+				(*p)++;
+			if (map->grid[y][x] == 'E')
+				(*e)++;
+			if (map->grid[y][x] == 'C')
+				(*c)++;
+			x++;
+		}
+		y++;
+	}
+}
+
+/*
+Used by: main
+Use: check_walls, check_chars, count_specials
+
+Check for any error in the map content
+*/
+int	validate_map(t_data *data)
+{
+	int	p_count;
+	int	e_count;
+	int	c_count;
+
+	if (!check_walls(&data->map))
+		return (0);
+	if (!check_chars(&data->map))
+		return (0);
+	count_specials(&data->map, &p_count, &e_count, &c_count);
+	if (p_count != 1 || e_count != 1 || c_count < 1)
+		return (0);
+	return (1);
+}
+
+/*
+Used by: main
+Use: Nothing
+
+Find the char P in the map and assign the position to the player
+*/
+void	find_player(t_data *data)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < data->map.height)
+	{
+		x = 0;
+		while (x < data->map.width)
+		{
+			if (data->map.grid[y][x] == 'P')
+			{
+				data->pos.x = x;
+				data->pos.y = y;
+				return;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
@@ -226,7 +362,7 @@ int	main(int argc, char *argv[])
 	}
 	if (!validate_map(&data))
 	{
-		ft_printf("Invalid map content");
+		ft_printf("Invalid map content\n");
 		free_map(data.map.grid, data.map.height);
 		return (1);
 	}

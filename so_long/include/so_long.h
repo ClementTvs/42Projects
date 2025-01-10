@@ -13,11 +13,13 @@
 
 typedef struct	s_img
 {
-	void	*img_ptr;
-	char	*img_pixel;
-	int	bpp;
-	int	line_len;
-	int	endian;
+	void	*wall;
+	char	*floor;
+	int	*player;
+	int	*collect;
+	int	*exit;
+	int	width;
+	int	height;
 }		t_img;
 
 typedef struct	s_map
