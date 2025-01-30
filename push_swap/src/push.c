@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 10:38:23 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/22 10:41:25 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:22:00 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	push(t_stack **sender, t_stack **receiver)
 	t_stack	*temp;
 
 	if (!*sender)
-		return;
+		return ;
 	temp = *sender;
 	*sender = (*sender)->next;
 	if (*sender)
@@ -31,7 +31,8 @@ void	push(t_stack **sender, t_stack **receiver)
 	else
 	{
 		temp->next = *receiver;
-		temp->next->prev = temp;
+		if (temp->next)
+			temp->next->prev = temp;
 		*receiver = temp;
 	}
 }

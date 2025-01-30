@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 10:32:05 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/22 11:14:07 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:18:59 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ void	rotate(t_stack **stack)
 	t_stack	*last;
 
 	if (!*stack || !(*stack)->next)
-		return;
+		return ;
 	first = *stack;
 	last = get_last_node(*stack);
 	*stack = first->next;
 	(*stack)->prev = NULL;
-
 	last->next = first;
 	first->prev = last;
 	first->next = NULL;

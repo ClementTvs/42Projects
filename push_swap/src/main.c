@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:46:02 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/22 11:17:45 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:22:33 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@ void	add_node(t_stack **stack, int nb)
 	t_stack	*new;
 	t_stack	*last;
 
+	if (!stack)
+		return ;
 	new = malloc(sizeof(t_stack));
 	if (!new)
-		return;
+		return ;
 	new->nb = nb;
 	new->next = NULL;
-	if (!*stack)
+	new->cheapest = 0;
+	if (!(*stack))
 	{
-		new->prev = NULL;
 		*stack = new;
+		new->prev = NULL;
 	}
 	else
-
 	{
 		last = get_last_node(*stack);
 		last->next = new;
@@ -61,41 +63,24 @@ int	is_it_sorted(t_stack *stack)
 int	main(int argc, char *argv[])
 {
 	t_stack	*a;
-//	t_stack	*b;
-	int	i;
-	int	nb;
+	t_stack	*b;
 
-	i = 1;
-	nb = 0;
-	if (argc < 2)
-	{
-		ft_printf("You need to put at least 2 arguments\n");
-		return (0);
-	}
 	a = NULL;
-	while (argv[i])
+	b = NULL;
+	if (argc == 1 || (argc == 2 && !argv[1][0]))
+		return (1);
+	else if (argc == 2)
+		argv = split(argv[1], ' ');
+	init_stack_a(&a, argv + 1);
+	if (!is_it_sorted(a))
 	{
-		nb = ft_atoi(argv[i]);
-		add_node(&a, nb);
-		//ft_printf("%i\n", a->nb);
-		//a = a->next;
-		i++;
-	}
-	if (is_it_sorted(a))
-		ft_printf("Sorted\n");
-	else
-	{
-		if (argc == 3)
-		{
-			ra(&a);
-			ft_printf("%i, %i\n", a->nb, a->next->nb);
-		}
-		else if (argc == 4)
-		{
+		if (stack_len(a) == 2)
+			sa(&a);
+		else if (stack_len(a) == 3)
 			three_sort(&a);
-			ft_printf("%i, %i, %i\n", a->nb, a->next->nb, a->next->next->nb);
-		}
-		if (is_it_sorted(a))
-			ft_printf("Sorteeeed\n");
+		else
+			sort_stack(&a, &b);
 	}
+	free_stack(&a);
+	return (0);
 }

@@ -15,6 +15,12 @@ SRC = 	$(SRCDIR)/main.c \
 	$(SRCDIR)/reverse_rotate.c \
 	$(SRCDIR)/rotate.c \
 	$(SRCDIR)/swap.c \
+	$(SRCDIR)/init_a.c \
+	$(SRCDIR)/init_b.c \
+	$(SRCDIR)/init_stack.c \
+	$(SRCDIR)/sort_stack.c \
+	$(SRCDIR)/errors.c \
+	$(SRCDIR)/split.c \
 
 OBJ = 	$(OBJDIR)/main.o \
 	$(OBJDIR)/push_utils.o \
@@ -22,6 +28,12 @@ OBJ = 	$(OBJDIR)/main.o \
 	$(OBJDIR)/reverse_rotate.o \
 	$(OBJDIR)/rotate.o \
 	$(OBJDIR)/swap.o \
+	$(OBJDIR)/init_a.o \
+	$(OBJDIR)/init_b.o \
+	$(OBJDIR)/init_stack.o \
+	$(OBJDIR)/sort_stack.o \
+	$(OBJDIR)/errors.o \
+	$(OBJDIR)/split.o \
 
 # Librairies
 LIBFT = $(LIBFTDIR)/libftprintf.a

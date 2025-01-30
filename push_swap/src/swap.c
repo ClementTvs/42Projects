@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 10:45:36 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/22 11:09:25 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:34:04 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	swap(t_stack **head)
 	if (!*head || !(*head)->next)
 		return ;
 	*head = (*head)->next;
-	(*head)->prev->prev = (*head);
+	(*head)->prev->prev = *head;
 	(*head)->prev->next = (*head)->next;
 	if ((*head)->next)
 		(*head)->next->prev = (*head)->prev;
