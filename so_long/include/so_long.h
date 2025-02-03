@@ -42,6 +42,7 @@ typedef struct	s_data
 	t_img	img;
 	t_pos	pos;
 	t_map	map;
+	int	step_count;
 }		t_data;
 
 void    close_win(t_data *data);
@@ -62,5 +63,9 @@ int	check_chars(t_map *map);
 void	count_specials(t_map *map, int *p, int *e, int *c);
 int	validate_map(t_data *data);
 void	find_player(t_data *data);
+int	has_collectibles(t_data *data);
+void flood_fill(char **temp, int y, int x, int *count);
+char    **copy_map(t_map *map);
+int     check_path(t_data *data);
 
 #endif
