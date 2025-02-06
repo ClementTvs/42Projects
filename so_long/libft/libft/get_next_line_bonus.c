@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:11:32 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/09 10:04:43 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:01:05 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ char	*deldoneline(char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	line = malloc((ft_strlen_gnl(buffer) - i + 1) * sizeof(char));
+	line = malloc((ft_strlen_gnl(buffer) - i + 2) * sizeof(char));
 	if (!line)
+	{
+		free(buffer);
 		return (NULL);
+	}
 	i++;
 	j = 0;
 	while (buffer[i])

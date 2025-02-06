@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 11:22:16 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/10 17:48:36 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:36:29 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,20 @@ void	render_map(t_data *data)
 		x = 0;
 		while (x < data->map.width)
 		{
+			if (!data->map.grid[y]) // Vérifie si la ligne est NULL
+            		{
+                		ft_printf("Error: map.grid[%d] is NULL\n", y);
+                		return;
+            		}
+           		ft_printf("Rendering at x=%d, y=%d, char=%c\n", x, y, data->map.grid[y][x]);
 			put_image(data, data->img.floor, x, y);
 			if (data->map.grid[y][x] == '1')
 				put_image(data, data->img.wall, x, y);
-			else if (data->map.grid[y][x] == 'P')
+			if (data->map.grid[y][x] == 'P')
 				put_image(data, data->img.player, x, y);
-			else if (data->map.grid[y][x] == 'E')
+			if (data->map.grid[y][x] == 'E')
 				put_image(data, data->img.exit, x, y);
-			else if (data->map.grid[y][x] == 'C')
+			if (data->map.grid[y][x] == 'C')
 				put_image(data, data->img.collectible, x, y);
 			x++;
 		}

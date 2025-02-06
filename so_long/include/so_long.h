@@ -14,10 +14,10 @@
 typedef struct	s_img
 {
 	void	*wall;
-	char	*floor;
-	int	*player;
-	int	*collectible;
-	int	*exit;
+	void	*floor;
+	void	*player;
+	void	*collectible;
+	void	*exit;
 	int	width;
 	int	height;
 }		t_img;
@@ -43,6 +43,7 @@ typedef struct	s_data
 	t_pos	pos;
 	t_map	map;
 	int	step_count;
+	char	previous;
 }		t_data;
 
 void    close_win(t_data *data);

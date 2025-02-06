@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:15:08 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/23 16:53:05 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:19:38 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@ Destroy the window and the display then free the data and exit
 */
 void	close_win(t_data *data)
 {
+	mlx_destroy_image(data->mlx, data->img.floor);
+	mlx_destroy_image(data->mlx, data->img.wall);
+	mlx_destroy_image(data->mlx, data->img.player);
+	mlx_destroy_image(data->mlx, data->img.exit);
+	mlx_destroy_image(data->mlx, data->img.collectible);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
+	free_map(data->map.grid, data->map.height);
 	exit(0);
 }
 
@@ -35,13 +41,8 @@ int	can_move(t_data *data, int new_y, int new_x)
 	if (new_x < 0 || new_x >= data->map.width)
 		return (0);
 	pos = data->map.grid[new_y][new_x];
-	if (pos == '1' )
+	if (pos == '1')
 		return (0);
-	/*if (pos == 'E' && has_collectibles(data))
-	{
-		ft_printf("You need to collect every items first !\n");
-		return (0);
-	}*/
 	return (1);
 }
 
@@ -75,18 +76,14 @@ void	update_position(t_data *data, int new_y, int new_x)
 		ft_printf("You won !!\n");
 		close_win(data);
 	}
-	if (current != 'E')
-	{
-		data->step_count++;
-		ft_printf("Steps: %d\n", data->step_count);
-		data->map.grid[data->pos.y][data->pos.x] = '0';
-		data->map.grid[new_y][new_x] = 'P';
-	}
-	if (current == 'E')
-	{
-		data->step_count++;
-		ft_printf("Steps: %d\n", data->step_count);
-	}
+	data->step_count++;
+	ft_printf("Steps: %d\n", data->step_count);
+	if (current == 'C')
+		data->previous = '0';
+	else
+		data->previous = data->map.grid[new_y][new_x];
+	data->map.grid[data->pos.y][data->pos.x] = data->previous;
+	data->map.grid[new_y][new_x] = 'P';
 	data->pos.y = new_y;
 	data->pos.x = new_x;
 	render_map(data);
@@ -101,15 +98,16 @@ int	key_press(int keysym, t_data *data)
 	new_x = data->pos.x;
 	if (keysym == XK_Escape)
 		close_win(data);
-	else if (keysym == XK_w || keysym == XK_Up)
+	else if (keysym == XK_w)
 		new_y--;
-	else if (keysym == XK_s || keysym == XK_Down)
+	else if (keysym == XK_s)
 		new_y++;
-	else if (keysym == XK_a || keysym == XK_Left)
+	else if (keysym == XK_a)
 		new_x--;
-	else if (keysym == XK_d || keysym == XK_Right)
+	else if (keysym == XK_d)
 		new_x++;
-	if (can_move(data, new_y, new_x))
+	if (can_move(data, new_y, new_x) && (keysym == XK_w ||
+				keysym == XK_d || keysym == XK_a || keysym == XK_s))
 		update_position(data, new_y, new_x);
 	return (0);
 }
@@ -271,6 +269,7 @@ Main function to check if the map is valid
 int	read_map(t_data *data, char *file)
 {
 	int	fd;
+	char	*line;
 
 	if (!init_map(&data->map, file))
 		return (0);
@@ -280,6 +279,9 @@ int	read_map(t_data *data, char *file)
 	if (!load_map_lines(data, fd))
 		return (0);
 	close(fd);
+	line = get_next_line(fd);
+	if (line)
+		free(line);
 	return (1);
 }
 
@@ -494,50 +496,28 @@ int	main(int argc, char *argv[])
 
 	data.step_count = 0;
 	if (argc != 2) 
-	{
-		ft_printf("Only take one argument which is a .ber file\n");
-		return (1);
-	}
+		return (ft_printf("Only take one argument which is a .ber file\n"), 1);
 	filename = ft_strrchr(argv[1], '.');
 	if (!filename || ft_strncmp(filename, ".ber", 4) != 0)
-	{
-		ft_printf("File must be .ber\n");
-		return (1);
-	}
-	if (!read_map(&data, argv[1]))
-	{
-		ft_printf("Invalid map format\n");
-		return (1);
-	}
-	find_player(&data);
-	if (!validate_map(&data))
-	{
-		ft_printf("Invalid map content\n");
-		free_map(data.map.grid, data.map.height);
-		return (1);
-	}
+		return (ft_printf("File must be .ber\n"), 1);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-	{
-		ft_printf("Failed to initialize MLX\n");
-		return (1);
-	}
+		return (ft_printf("Failed to initialize MLX\n"), 1);
+	if (!read_map(&data, argv[1]))
+		return (ft_printf("Invalid map format\n"), 1);
+	find_player(&data);
+	if (!validate_map(&data))
+		return (ft_printf("Invalid map content\n"), 
+				free_map(data.map.grid, data.map.height), 1);
 	if (!load_textures(&data))
-	{
-		ft_printf("Failed to load texture\n");
-		return (1);
-	}
-	data.win = mlx_new_window(data.mlx, data.map.width * 32, data.map.height * 32, "so_long");
+		return (ft_printf("Failed to load texture\n"), 1);
+	data.win = mlx_new_window(data.mlx, data.map.width * 32, 
+			data.map.height * 32, "so_long");
 	if (!data.win)
-	{
-		ft_printf("Failed to create Window\n");
-		mlx_destroy_display(data.mlx);
-		free(data.mlx);
-		return (1);
-	}
+		return (ft_printf("Failed to create Window\n"), 
+			mlx_destroy_display(data.mlx), free(data.mlx), 1);
 	render_map(&data);
 	mlx_key_hook(data.win, key_press, &data);
 	mlx_hook(data.win, 17, 0, close_cross, &data);
 	mlx_loop(data.mlx);
-	return (0);
 }
