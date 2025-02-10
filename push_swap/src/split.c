@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:00:52 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/01/30 11:26:50 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/02/10 11:31:11 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*get_next_word(char *s, char c)
 	return (next_word);
 }
 
-char	**split(char *s, char c)
+char	**split_ps(char *s, char c)
 {
 	int		words_count;
 	char	**res;

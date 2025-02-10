@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:43:25 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/30 11:31:09 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/02/10 11:31:49 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int		error_duplicate(t_stack *a, int n);
 void	free_stack(t_stack **stack);
 void	free_errors(t_stack **a);
 void	init_stack_a(t_stack **a, char *argv[]);
-char	**split(char *s, char c);
+char	**split_ps(char *s, char c);
 
 #endif

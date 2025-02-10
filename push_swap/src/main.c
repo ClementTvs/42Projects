@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:46:02 by ctravers          #+#    #+#             */
-/*   Updated: 2025/01/30 11:22:33 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/02/10 11:30:48 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ int	main(int argc, char *argv[])
 {
 	t_stack	*a;
 	t_stack	*b;
+	int	c;
 
+	c = 0;
 	a = NULL;
 	b = NULL;
 	if (argc == 1 || (argc == 2 && !argv[1][0]))
 		return (1);
 	else if (argc == 2)
-		argv = split(argv[1], ' ');
+		argv = split_ps(argv[1], ' ');
 	init_stack_a(&a, argv + 1);
 	if (!is_it_sorted(a))
 	{
@@ -81,6 +83,12 @@ int	main(int argc, char *argv[])
 		else
 			sort_stack(&a, &b);
 	}
+	while (argv[c])
+	{
+		free(argv[c]);
+		c++;
+	}
+	free(argv);
 	free_stack(&a);
 	return (0);
 }
