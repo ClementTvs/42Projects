@@ -6,11 +6,20 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:01:32 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/02/13 13:07:55 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/02/18 11:37:04 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
+
+void	Kill(pid_t pid, int signal)
+{
+	if (kill(pid, signal) < 0)
+	{
+		ft_printf("Kill error");
+		exit(0);
+	}
+}
 
 void	Signal(int signal, void *handler, bool info)
 {
@@ -31,6 +40,6 @@ void	Signal(int signal, void *handler, bool info)
 	if (sigaction(signal, &sa, NULL) > 0)
 	{
 		ft_printf("sigaction failed");
-		return ;
+		exit(0);
 	}
 }
