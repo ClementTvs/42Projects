@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:17:42 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/02/18 11:34:03 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/02/18 13:55:43 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ enum
 	NOT_READY
 };
 
-void	handler(int signal, siginfo_t *info, void *more_info);
-void    Signal(int signal, void *handler, bool info);
-void	Kill(pid_t pid, int signal);
+void	handler(int signal, siginfo_t *info);
+void	signal_mntlk(int signal, void *handler, bool info);
+void	kill_mntlk(pid_t pid, int signal);
+int		ft_atoi(const char *str);
 
 #endif

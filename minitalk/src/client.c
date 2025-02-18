@@ -6,20 +6,20 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 09:47:38 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/02/18 11:42:00 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/02/18 13:54:28 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
 
-volatile sig_atomic_t g_server = NOT_READY;
+volatile sig_atomic_t	g_server = NOT_READY;
 
-void	ok_handler()
+void	ok_handler(void)
 {
 	g_server = READY;
 }
 
-void	end_handler()
+void	end_handler(void)
 {
 	write(1, "Message Received\n", 17);
 	exit(0);
@@ -33,14 +33,14 @@ void	send_char(char c, pid_t server_pid)
 	while (bit < 8)
 	{
 		if (c & (0b10000000 >> bit))
-			Kill(server_pid, SIGUSR1);
+			kill_mntlk(server_pid, SIGUSR1);
 		else
-			Kill(server_pid, SIGUSR2);
+			kill_mntlk(server_pid, SIGUSR2);
 		++bit;
+		while (g_server == NOT_READY)
+			usleep(42);
+		g_server = NOT_READY;
 	}
-	while (g_server == NOT_READY) 
-		usleep(42);
-	g_server = NOT_READY;
 }
 
 int	main(int ac, char **av)
@@ -55,11 +55,9 @@ int	main(int ac, char **av)
 	}
 	server_pid = ft_atoi(av[1]);
 	message = av[2];
-
-	Signal(SIGUSR1, ok_handler, false);
-	Signal(SIGUSR2, end_handler, false);
-
-	while (*message) 
+	signal_mntlk(SIGUSR1, ok_handler, false);
+	signal_mntlk(SIGUSR2, end_handler, false);
+	while (*message)
 		send_char(*message++, server_pid);
 	send_char('\0', server_pid);
 	return (0);
