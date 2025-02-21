@@ -22,7 +22,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 # Règles par défaut
-all: $(NAMESERV) $(NAMECLIENT)
+all: $(FT_PRINTF_LIB) $(NAMESERV) $(NAMECLIENT)
 
 # Créer l'exécutable du serveur
 $(NAMESERV): $(OBJSERV)
@@ -37,12 +37,16 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(FT_PRINTF_LIB):
+	$(MAKE) -C $(FT_PRINTF_DIR)
+
 # Nettoyer les fichiers objets et l'exécutable
 clean:
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAMESERV) $(NAMECLIENT)
+	$(MAKE) -C $(FT_PRINTF_DIR) fclean
 
 # Recompiler le projet entièrement
 re: fclean all
