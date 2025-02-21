@@ -53,7 +53,7 @@ char    *read_line(int fd);
 int     count_map_height(char *file);
 int     init_map(t_map *map, char *file);
 int     check_line_length(char *line, int width);
-void    free_map(char **grid, int height);
+void    free_map(char **grid, int height, t_data *data);
 int     load_map_lines(t_data *data, int fd);
 int     read_map(t_data *data, char *file);
 void    put_image(t_data *data, void *img, int x, int y);
@@ -66,7 +66,8 @@ int	validate_map(t_data *data);
 void	find_player(t_data *data);
 int	has_collectibles(t_data *data);
 void flood_fill(char **temp, int y, int x, int *count);
-char    **copy_map(t_map *map);
+char    **copy_map(t_map *map, t_data *data);
 int     check_path(t_data *data);
+void	init_all(t_data *data);
 
 #endif

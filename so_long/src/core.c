@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:15:08 by ctravers          #+#    #+#             */
-/*   Updated: 2025/02/18 14:16:01 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/02/21 15:54:53 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,25 @@ Destroy the window and the display then free the data and exit
 */
 void	close_win(t_data *data)
 {
-	mlx_destroy_image(data->mlx, data->img.floor);
-	mlx_destroy_image(data->mlx, data->img.wall);
-	mlx_destroy_image(data->mlx, data->img.player);
-	mlx_destroy_image(data->mlx, data->img.exit);
-	mlx_destroy_image(data->mlx, data->img.collectible);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	free_map(data->map.grid, data->map.height);
+	if (data->img.floor)
+		mlx_destroy_image(data->mlx, data->img.floor);
+	if (data->img.wall)
+		mlx_destroy_image(data->mlx, data->img.wall);
+	if (data->img.player)
+		mlx_destroy_image(data->mlx, data->img.player);
+	if (data->img.exit)
+		mlx_destroy_image(data->mlx, data->img.exit);
+	if (data->img.collectible)
+		mlx_destroy_image(data->mlx, data->img.collectible);
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	if (data->map.grid)
+		free_map(data->map.grid, data->map.height, data);
 	exit(0);
 }
 
@@ -78,11 +88,13 @@ void	update_position(t_data *data, int new_y, int new_x)
 	}
 	data->step_count++;
 	ft_printf("Steps: %d\n", data->step_count);
+	data->map.grid[data->pos.y][data->pos.x] = data->previous;
 	if (current == 'C')
 		data->previous = '0';
+	if (current == 'E')
+		data->previous = 'E';
 	else
 		data->previous = data->map.grid[new_y][new_x];
-	data->map.grid[data->pos.y][data->pos.x] = data->previous;
 	data->map.grid[new_y][new_x] = 'P';
 	data->pos.y = new_y;
 	data->pos.x = new_x;
@@ -219,14 +231,21 @@ Use: Nothing
 
 Free the whole map
 */
-void	free_map(char **grid, int height)
+void	free_map(char **grid, int height, t_data *data)
 {
 	int	i;
 
 	i = 0;
+	if (!grid)
+		return ;
 	while (i < height)
-		free(grid[i++]);
+	{
+		if (grid[i])
+			free(grid[i]);
+		i++;
+	}
 	free(grid);
+	data->map.grid = NULL;
 }
 
 /*
@@ -247,10 +266,15 @@ int	load_map_lines(t_data *data, int fd)
 	while (i < data->map.height)
 	{
 		data->map.grid[i] = read_line(fd);
+		if (!data->map.grid[i])
+		{
+			free_map(data->map.grid, i, data);
+			return (0);
+		}
 		if (!check_line_length(data->map.grid[i], data->map.width))
 		{
-			free_map(data->map.grid, i);
-			close(fd);
+			free(data->map.grid[i]);
+			free_map(data->map.grid, i, data);
 			return (0);
 		}
 		if (i == 0)
@@ -277,11 +301,17 @@ int	read_map(t_data *data, char *file)
 	if (fd < 0)
 		return (0);
 	if (!load_map_lines(data, fd))
+	{
+		close(fd);
 		return (0);
-	close(fd);
+	}
 	line = get_next_line(fd);
-	if (line)
+	while (line)
+	{
 		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 	return (1);
 }
 
@@ -407,7 +437,7 @@ void flood_fill(char **temp, int y, int x, int *count)
 	flood_fill(temp, y, x - 1, count);
 }
 
-char	**copy_map(t_map *map)
+char	**copy_map(t_map *map, t_data *data)
 {
 	char	**temp;
 	int	i;
@@ -423,7 +453,7 @@ char	**copy_map(t_map *map)
 		temp[i] = ft_strdup(map->grid[i]);
 		if (!temp[i])
 		{
-			free_map(temp, i);
+			free_map(temp, i, data);
 			return (NULL);
 		}
 		i++;
@@ -439,7 +469,7 @@ int	check_path(t_data *data)
 	int	y;
 	int	x;
 
-	temp = copy_map(&data->map);
+	temp = copy_map(&data->map, data);
 	if (!temp)
 		return (0);
 	count = 0;
@@ -456,7 +486,7 @@ int	check_path(t_data *data)
 		y++;
 	}
 	flood_fill(temp, data->pos.y, data->pos.x, &count);
-	free_map(temp, data->map.height);
+	free_map(temp, data->map.height, data);
 	return (count == 0);
 }
 
@@ -489,6 +519,16 @@ void	find_player(t_data *data)
 	}
 }
 
+void	init_all(t_data *data)
+{
+	data->img.collectible = NULL;
+	data->img.exit = NULL;
+	data->img.floor = NULL;
+	data->img.wall = NULL;
+	data->img.player = NULL;
+	data->win = NULL;
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
@@ -503,19 +543,31 @@ int	main(int argc, char *argv[])
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		return (ft_printf("Failed to initialize MLX\n"), 1);
+	init_all(&data);
 	if (!read_map(&data, argv[1]))
+	{
+		close_win(&data);
 		return (ft_printf("Invalid map format\n"), 1);
+	}
 	find_player(&data);
 	if (!validate_map(&data))
-		return (ft_printf("Invalid map content\n"), 
-				free_map(data.map.grid, data.map.height), 1);
+	{
+		close_win(&data);
+		return (ft_printf("Invalid map content\n"), 1);
+	}
 	if (!load_textures(&data))
+	{
+		close_win(&data);
 		return (ft_printf("Failed to load texture\n"), 1);
+	}
 	data.win = mlx_new_window(data.mlx, data.map.width * 32, 
 			data.map.height * 32, "so_long");
 	if (!data.win)
-		return (ft_printf("Failed to create Window\n"), 
-			mlx_destroy_display(data.mlx), free(data.mlx), 1);
+	{
+		close_win(&data);
+		return (ft_printf("Failed to create Window\n"), 1);
+	}
+	data.previous = '\0';
 	render_map(&data);
 	mlx_key_hook(data.win, key_press, &data);
 	mlx_hook(data.win, 17, 0, close_cross, &data);
