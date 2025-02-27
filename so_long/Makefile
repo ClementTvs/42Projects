@@ -12,9 +12,17 @@ MLXDIR = minilibx-linux
 # Fichiers sources et objets
 SRC = 	$(SRCDIR)/core.c \
 	$(SRCDIR)/render.c \
+	$(SRCDIR)/utils.c \
+	$(SRCDIR)/check_map_content.c \
+	$(SRCDIR)/check_map_format.c \
+	$(SRCDIR)/playermouv.c \
 
 OBJ = 	$(OBJDIR)/core.o \
  	$(OBJDIR)/render.o \
+ 	$(OBJDIR)/utils.o \
+ 	$(OBJDIR)/check_map_content.o \
+ 	$(OBJDIR)/check_map_format.o \
+ 	$(OBJDIR)/playermouv.o \
 
 # Librairies
 LIBFT = $(LIBFTDIR)/libft.a
@@ -27,34 +35,36 @@ NAME = so_long
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFTDIR) -L$(MLXDIR) -lftprintf -lmlx -lXext -lX11 -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -L$(LIBFTDIR) -L$(MLXDIR) -lftprintf -lmlx -lXext -lX11 -o $(NAME)
+	@echo "Compilation Done"
 
 # Compilation des objets
-$(OBJDIR)/render.o: $(SRCDIR)/render.c $(INCDIR)/so_long.h
-	mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLXDIR) -c $< -o $@
-
-$(OBJDIR)/core.o: $(SRCDIR)/core.c $(INCDIR)/so_long.h
-	mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLXDIR) -c $< -o $@
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCDIR)/so_long.h
+	@echo "Compiling .."
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) -I$(INCDIR) -I$(MLXDIR) -c $< -o $@
 
 # Compilation de libft
 $(LIBFT):
-	make -C $(LIBFTDIR)
+	@make -C $(LIBFTDIR)
 
 # Compilation de minilibx
 $(MLX):
-	make -C $(MLXDIR)
+	@make -C $(MLXDIR)
 
 # Nettoyage
 clean:
-	rm -rf $(OBJDIR)
-	make clean -C $(LIBFTDIR)
-	make clean -C $(MLXDIR)
+	@rm -rf $(OBJDIR)
+	@make clean -C $(LIBFTDIR)
+	@make clean -C $(MLXDIR)
+	@echo "Object files cleaned"
 
 fclean: clean
-	rm -f $(NAME)
-	make fclean -C $(LIBFTDIR)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFTDIR)
+	@echo "All clean"
 
 re: fclean all
+	@echo "Cleaned and rebuilt"
 
+.PHONY: all clean re fclean
