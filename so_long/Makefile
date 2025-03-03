@@ -25,7 +25,7 @@ OBJ = 	$(OBJDIR)/core.o \
  	$(OBJDIR)/playermouv.o \
 
 # Librairies
-LIBFT = $(LIBFTDIR)/libft.a
+LIBFT = $(LIBFTDIR)/libftprintf.a
 MLX = $(MLXDIR)/libmlx.a
 
 # Exécutable
