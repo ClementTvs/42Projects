@@ -66,3 +66,5 @@ fclean: clean
 	make fclean -C $(LIBFTDIR)
 
 re: fclean all
+
+.PHONY: all clean fclean re

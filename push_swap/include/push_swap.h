@@ -6,7 +6,7 @@
 /*   By: ctravers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:43:25 by ctravers          #+#    #+#             */
-/*   Updated: 2025/02/13 09:44:22 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/03/03 10:25:27 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ t_stack	*find_last(t_stack *stack);
 int		error_syntax(char *str_n);
 int		error_duplicate(t_stack *a, int n);
 void	free_stack(t_stack **stack);
-void	free_errors(t_stack **a);
-void	init_stack_a(t_stack **a, char *argv[]);
+void	free_errors(t_stack **a, char **argv, int argc);
+void	init_stack_a(t_stack **a, char *argv[], int argc);
 char	**split_ps(char *s, char c);
+void	free_argv(char **argv);
 
 #endif

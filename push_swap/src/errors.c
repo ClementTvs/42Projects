@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:31:28 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/01/30 11:07:17 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/03/03 10:05:28 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ void	free_stack(t_stack **stack)
 	*stack = NULL;
 }
 
-void	free_errors(t_stack **a)
+void	free_errors(t_stack **a, char **argv, int argc)
 {
 	free_stack(a);
+	if (argc == 2)
+		free_argv(argv);
 	ft_printf("Error\n");
 	exit(1);
 }

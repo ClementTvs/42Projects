@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 10:30:51 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/01/30 11:27:35 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/03/03 10:28:39 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ static long	ft_atol(const char *s)
 	return (res * sign);
 }
 
-void	init_stack_a(t_stack **a, char *argv[])
+void	init_stack_a(t_stack **a, char *argv[], int argc)
 {
 	long	n;
 	int		i;
 
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
 		if (error_syntax(argv[i]))
-			free_errors(a);
+			free_errors(a, argv, argc);
 		n = ft_atol(argv[i]);
 		if (n > INT_MAX || n < INT_MIN)
-			free_errors(a);
+			free_errors(a, argv, argc);
 		if (error_duplicate(*a, (int)n))
-			free_errors(a);
+			free_errors(a, argv, argc);
 		add_node(a, (int)n);
 		i++;
 	}
