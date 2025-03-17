@@ -30,7 +30,7 @@ clean:
 	@echo "$GCleaned obj files$(RST)"
 
 fclean: clean
-	@rm -rf $(OBJDIR)
+	@rm -rf $(NAME)
 	@echo "$GAll cleaned$(RST)"
 
 re: fclean all
