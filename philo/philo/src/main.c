@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:12:19 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/03/17 11:32:06 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/03/20 11:26:46 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,49 +30,56 @@ int	error_syntax(char *str_n)
 	return (0);
 }
 
-bool	check_error(char **av)
+bool	check_error(char **av, int ac)
 {
 	int	i;
 
 	i = 1;
-	if (ft_atoi(av[i]) > 200 && !error_syntax(av[i]))
+	if (ft_atoi(av[i]) > 200 || error_syntax(av[i]) || ft_atoi(av[i]) < 0)
 		return (true);
 	i++;
-	while(av[i])
+	while(i <= 4)
+	{
+		if (error_syntax(av[i]))
+			return (true);
+		if (ft_atoi(av[i]) > INT_MAX || ft_atoi(av[i]) < 60)
+			return (true);
+		i++;
+	}
+	if (ac == 6)
 	{
 		if (error_syntax(av[i]))
 			return (true);
 		if (ft_atoi(av[i]) > INT_MAX || ft_atoi(av[i]) < 0)
 			return (true);
-		i++;
 	}
 	return (false);
 }
 
-void	init_philo(char **av, int ac, t_philo *philo)
+void	init_philo(char **av, int ac, t_data *data)
 {
-	philo->nbr = ft_atoi(av[1]);
-	philo->time_to_die = ft_atoi(av[2]);
-	philo->time_to_eat = ft_atoi(av[3]);
-	philo->time_to_sleep = ft_atoi(av[4]);
+	data->philo_nbr = ft_atoi(av[1]);
+	data->time_to_die = ft_atoi(av[2]) * 1e3;
+	data->time_to_eat = ft_atoi(av[3]) * 1e3;
+	data->time_to_sleep = ft_atoi(av[4]) * 1e3;
 	if (ac == 6)
-		philo->eat_max = ft_atoi(av[5]);
+		data->max_meals = ft_atoi(av[5]);
 	else
-		philo->eat_max = -1;
+		data->max_meals = -1;
 }
 
 int	main(int ac, char **av)
 {
-	t_philo	philo;
+	t_data	data;
 
-	if ((ac != 5 && ac != 6) || check_error(av))
+	if ((ac != 5 && ac != 6) || check_error(av, ac))
 	{
 		err_msg("Error, correct args would be : ./philo 5 100 800 600 [10]");
 		return (0);
 	}
 	else
 	{
-		init_philo(av, ac, &philo);
+		init_philo(av, ac, &data);
 	}
 	return (0);
 }
