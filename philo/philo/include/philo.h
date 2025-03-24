@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:24:25 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/03/20 11:12:02 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/03/23 17:15:39 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,12 @@ void	err_msg(const char *str);
 int	ft_atoi(const char *str);
 bool	check_error(char **av, int ac);
 int	error_syntax(char *str_n);
+void	*safe_malloc(size_t bytes);
+int	safe_mutex_init(mtx_t *mutex);
+int	safe_thread_create(pthread_t *thread, void *(*routine)(void *), void *arg);
+t_data	*init_sim(int ac, char **av);
+t_data	*init_data(int ac, char **av);
+t_philo	*init_philos(t_data *data);
+t_fork	*init_forks(int philo_nbr);
+void	free_data(t_data *data);
+long	get_time_in_ms(void);

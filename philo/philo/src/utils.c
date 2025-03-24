@@ -6,11 +6,12 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:26:34 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/03/17 10:47:37 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/03/21 12:44:01 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
+#include <pthread.h>
 
 int	ft_atoi(const char *str)
 {
@@ -41,3 +42,25 @@ void	err_msg(const char *str)
 {
 	printf(RED "%s\n" RST, str);
 }
+
+void	free_data(t_data *data)
+{
+	if (!data)
+		return ;
+	int	i;
+
+	if (data->forks)
+	{
+		i = 0;
+		while (i < data->philo_nbr)
+		{
+			pthread_mutex_destroy(&data->forks[i].fork);
+			i++;
+		}
+		free(data->forks);
+	}
+	if (data->philos)
+		free(data->philos);
+	free(data);
+}
+

@@ -1,10 +1,10 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -Iinclude
 
 SRCDIR = src/
 OBJDIR = obj/
 
-SRC_FILES = main utils
+SRC_FILES = main utils init safe_func time
 SRC = $(addprefix $(SRCDIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ = $(addprefix $(OBJDIR), $(addsuffix .o, $(SRC_FILES)))
 NAME = philo
@@ -15,7 +15,7 @@ RST = \033[0m
 all : $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lpthread
 	@echo "$GCompilation done!$(RST)"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
