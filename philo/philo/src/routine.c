@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ctravers <ctravers@student.42perpignan.fr  +#+  +:+       +#+        */
+/*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 12:23:28 by ctravers          #+#    #+#             */
-/*   Updated: 2025/03/24 10:14:08 by ctravers42       ###   ########.fr       */
+/*   Created: 2025/03/24 10:16:38 by ctravers42        #+#    #+#             */
+/*   Updated: 2025/03/24 10:22:53 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	get_time_in_ms(void)
+void	*philo_routine(void *arg)
 {
-	struct timeval tv;
+	t_philo *philo;
+	t_data	*data;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
-}
-
-void	precise_sleep(long ms)
-{
-	long	start_time;
-
-	start_time = get_time_in_ms();
-	while (get_time_in_ms() - start_time < ms)
-		usleep(500);
+	philo = (t_philo *)arg;
+	data = philo->data;
+	if (philo->philo_i % 2 == 0)
+		usleep(1000);
 }

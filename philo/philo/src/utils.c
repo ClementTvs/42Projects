@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:26:34 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/03/21 12:44:01 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:12:11 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	free_data(t_data *data)
 		return ;
 	int	i;
 
+	i = 0;
 	if (data->forks)
 	{
-		i = 0;
 		while (i < data->philo_nbr)
 		{
 			pthread_mutex_destroy(&data->forks[i].fork);

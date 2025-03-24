@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:24:25 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/03/23 17:15:39 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:14:26 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,4 @@ t_philo	*init_philos(t_data *data);
 t_fork	*init_forks(int philo_nbr);
 void	free_data(t_data *data);
 long	get_time_in_ms(void);
+void	precise_sleep(long ms);

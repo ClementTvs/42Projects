@@ -6,12 +6,11 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:12:19 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/03/23 17:14:50 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:11:02 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
 
 int	error_syntax(char *str_n)
 {
