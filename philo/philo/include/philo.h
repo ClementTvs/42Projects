@@ -26,36 +26,68 @@ typedef pthread_mutex_t mtx_t;
 
 typedef struct s_data t_data;
 
+/*
+This struct contains:
+	A mutex fork
+	The id of the fork
+*/
 typedef struct s_fork
 {
 	mtx_t	fork;
 	int	fork_id;
 }			t_fork;
 
+/*
+This struct contains :
+	The ID of the philo
+	The nbr of meals they ate
+	A bool to know if they are full
+	The last time they got a meal
+	A fork to the left fork
+	A fork to the right fork
+	The ID of the thread
+	And the data struct
+	*/
 typedef struct s_philo
 {
 	int	philo_id;
 	long	meals_count;
 	bool	full;
+	long	last_meal_time;
 	t_fork	*lfork;
 	t_fork	*rfork;
+	mtx_t	meal_mutex;
 	pthread_t	thread_id;
 	t_data	*data;
 } t_philo;
 
+/*
+This struct contains :
+	The number of philosophers
+	The time to die
+	The time to eat
+	The time to sleep
+	The max amount of meal they can get
+	A start sim long ->Idk why
+	An end sim bool to know when to end the sim
+	A sim mutex to protect sim data
+	A print mutex to protect the sim printf
+	The forks and philos struct
+*/
 struct s_data
 {
 	int	philo_nbr;
-	int	time_to_die;
+	long	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	max_meals;
 	long	start_sim;
 	bool	end_sim;
+	mtx_t	sim_mutex;
+	mtx_t	print_mutex;
 	t_fork	*forks;
 	t_philo	*philos;
 };
-
 
 void	err_msg(const char *str);
 int	ft_atoi(const char *str);
@@ -71,3 +103,10 @@ t_fork	*init_forks(int philo_nbr);
 void	free_data(t_data *data);
 long	get_time_in_ms(void);
 void	precise_sleep(long ms);
+void	*philo_routine(void *arg);
+void	release_forks(t_philo *philo);
+void	take_forks(t_philo *philo);
+void	print_status(t_philo *philo, char *status);
+bool	is_sim_over(t_data *data);
+void    *monitor_routine(void *arg);
+

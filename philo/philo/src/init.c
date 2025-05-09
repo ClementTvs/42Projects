@@ -27,9 +27,11 @@ t_data	*init_data(int ac, char **av)
 		data->max_meals = ft_atoi(av[5]);
 	else
 		data->max_meals = -1;
-	data->end_sim = 0;
+	data->end_sim = false;
 	data->forks = NULL;
 	data->philos = NULL;
+	safe_mutex_init(&data->print_mutex);
+	safe_mutex_init(&data->sim_mutex);
 	return (data);
 }
 
@@ -37,10 +39,10 @@ t_fork	*init_forks(int philo_nbr)
 {
 	t_fork	*forks;
 	int	i;
-
+	
 	forks = safe_malloc(sizeof(t_fork) * philo_nbr);
 	if (!forks)
-		return (NULL);
+	return (NULL);
 	i = 0;
 	while (i < philo_nbr)
 	{
@@ -68,6 +70,7 @@ t_philo	*init_philos(t_data *data)
 		philos[i].lfork = &data->forks[i];
 		philos[i].rfork = &data->forks[(i + 1) % data->philo_nbr];
 		philos[i].data = data;
+		safe_mutex_init(&philos[i].meal_mutex);
 		i++;
 	}
 	return (philos);

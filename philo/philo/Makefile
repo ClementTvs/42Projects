@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -g -Iinclude
 SRCDIR = src/
 OBJDIR = obj/
 
-SRC_FILES = main utils init safe_func time
+SRC_FILES = main utils init safe_func time monitor_routine routine
 SRC = $(addprefix $(SRCDIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ = $(addprefix $(OBJDIR), $(addsuffix .o, $(SRC_FILES)))
 NAME = philo

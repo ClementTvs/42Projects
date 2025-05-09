@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:26:34 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/03/24 10:12:11 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/05/07 17:31:59 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	err_msg(const char *str)
 
 void	free_data(t_data *data)
 {
-	if (!data)
-		return ;
 	int	i;
 
+	if (!data)
+		return ;
 	i = 0;
 	if (data->forks)
 	{
@@ -60,7 +60,16 @@ void	free_data(t_data *data)
 		free(data->forks);
 	}
 	if (data->philos)
+	{
+		i = 0;
+		while (i < data->philo_nbr)
+		{
+			pthread_mutex_destroy(&data->philos[i].meal_mutex);
+			i++;
+		}
 		free(data->philos);
+	}
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->sim_mutex);
 	free(data);
 }
-
