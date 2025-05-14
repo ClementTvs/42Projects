@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:24:25 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/03/24 10:14:26 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/05/14 12:13:03 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ struct s_data
 	bool	end_sim;
 	mtx_t	sim_mutex;
 	mtx_t	print_mutex;
+	mtx_t	ready_mutex;
+	bool	all_thread_rdy;
 	t_fork	*forks;
 	t_philo	*philos;
 };

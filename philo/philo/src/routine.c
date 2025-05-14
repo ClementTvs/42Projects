@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:16:38 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/05/07 17:39:14 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:44:15 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,19 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
+	while (1) 
+	{
+		pthread_mutex_lock(&data->ready_mutex);
+		if (data->all_thread_rdy) 
+		{
+			pthread_mutex_unlock(&data->ready_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&data->ready_mutex);
+		usleep(100);
+	}
 	if (philo->philo_id % 2 == 0)
-		usleep(1000);
+		usleep(5000);
 	while(!is_sim_over(data))
 	{
 		print_status(philo, "is thinking");

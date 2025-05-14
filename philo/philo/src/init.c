@@ -6,7 +6,7 @@
 /*   By: ctravers <ctravers@student.42perpignan.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:38:51 by ctravers          #+#    #+#             */
-/*   Updated: 2025/03/21 12:47:32 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:13:24 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ t_data	*init_data(int ac, char **av)
 	data->end_sim = false;
 	data->forks = NULL;
 	data->philos = NULL;
+	data->all_thread_rdy = false;
 	safe_mutex_init(&data->print_mutex);
 	safe_mutex_init(&data->sim_mutex);
+	safe_mutex_init(&data->ready_mutex);
 	return (data);
 }
 

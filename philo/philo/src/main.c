@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:12:19 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/05/07 17:33:20 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/05/14 12:45:40 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ void	start_sim(t_data *data)
 	}
 	if (safe_thread_create(&monitor_id, monitor_routine, data))
 		return (err_msg("Error creating monitor thread"));
+	pthread_mutex_lock(&data->ready_mutex);
+	data->all_thread_rdy = true;
+	pthread_mutex_unlock(&data->ready_mutex);
 	i = 0;
 	while (i < data->philo_nbr)
 	{
