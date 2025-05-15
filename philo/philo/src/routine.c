@@ -85,7 +85,6 @@ void	take_forks(t_philo *philo)
 	print_status(philo, "has taken a fork");
 	pthread_mutex_lock(&second_fork->fork);
 	print_status(philo, "has taken a fork");
-
 }
 
 void	release_forks(t_philo *philo)
@@ -124,7 +123,7 @@ void	*philo_routine(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&data->ready_mutex);
-		usleep(1000);
+		usleep(10 * data->philo_nbr / 2);
 	}
 	if (philo->philo_id % 2 == 0)
 		usleep(5000);
