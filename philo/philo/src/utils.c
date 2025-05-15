@@ -53,23 +53,32 @@ void	free_data(t_data *data)
 	if (data->forks)
 	{
 		while (i < data->philo_nbr)
-		{
-			pthread_mutex_destroy(&data->forks[i].fork);
-			i++;
-		}
+			pthread_mutex_destroy(&data->forks[i++].fork);
 		free(data->forks);
 	}
 	if (data->philos)
 	{
 		i = 0;
 		while (i < data->philo_nbr)
-		{
-			pthread_mutex_destroy(&data->philos[i].meal_mutex);
-			i++;
-		}
+			pthread_mutex_destroy(&data->philos[i++].meal_mutex);
 		free(data->philos);
 	}
 	pthread_mutex_destroy(&data->print_mutex);
 	pthread_mutex_destroy(&data->sim_mutex);
 	free(data);
+}
+
+void	sync_philos(t_data *data)
+{
+	while (1) 
+	{
+		pthread_mutex_lock(&data->ready_mutex);
+		if (data->all_thread_rdy) 
+		{
+			pthread_mutex_unlock(&data->ready_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&data->ready_mutex);
+		usleep(10 * data->philo_nbr / 2);
+	}
 }

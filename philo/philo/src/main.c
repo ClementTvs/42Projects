@@ -56,10 +56,9 @@ bool	check_error(char **av, int ac)
 	return (false);
 }
 
-void	start_sim(t_data *data)
+static void	create_philo_thread(t_data *data)
 {
 	int	i;
-	pthread_t	monitor_id;
 
 	i = 0;
 	data->start_sim = get_time_in_ms();
@@ -80,12 +79,20 @@ void	start_sim(t_data *data)
 		}
 		i++;
 	}
+}
+
+void	start_sim(t_data *data)
+{
+	int	i;
+	pthread_t	monitor_id;
+
+	i = 0;
+	create_philo_thread(data);
 	if (safe_thread_create(&monitor_id, monitor_routine, data))
 		return (err_msg("Error creating monitor thread"));
 	pthread_mutex_lock(&data->ready_mutex);
 	data->all_thread_rdy = true;
 	pthread_mutex_unlock(&data->ready_mutex);
-	i = 0;
 	while (i < data->philo_nbr)
 	{
 		pthread_join(data->philos[i].thread_id, NULL);

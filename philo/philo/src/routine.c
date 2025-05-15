@@ -114,17 +114,7 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
-	while (1) 
-	{
-		pthread_mutex_lock(&data->ready_mutex);
-		if (data->all_thread_rdy) 
-		{
-			pthread_mutex_unlock(&data->ready_mutex);
-			break ;
-		}
-		pthread_mutex_unlock(&data->ready_mutex);
-		usleep(10 * data->philo_nbr / 2);
-	}
+	sync_philos(data);
 	if (philo->philo_id % 2 == 0)
 		usleep(5000);
 	while(!is_sim_over(data))

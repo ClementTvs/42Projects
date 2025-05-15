@@ -111,4 +111,5 @@ void	take_forks(t_philo *philo);
 void	print_status(t_philo *philo, char *status);
 bool	is_sim_over(t_data *data);
 void    *monitor_routine(void *arg);
+void	sync_philos(t_data *data);
 
