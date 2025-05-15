@@ -73,7 +73,7 @@ static void	create_philo_thread(t_data *data)
 	while (i < data->philo_nbr)
 	{
 		if (safe_thread_create(&data->philos[i].thread_id,
-					philo_routine, &data->philos[i]))
+				philo_routine, &data->philos[i]))
 		{
 			return (err_msg("Error creating threads"));
 		}
@@ -83,7 +83,7 @@ static void	create_philo_thread(t_data *data)
 
 void	start_sim(t_data *data)
 {
-	int	i;
+	int			i;
 	pthread_t	monitor_id;
 
 	i = 0;
@@ -107,7 +107,8 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	if ((ac != 5 && ac != 6) || check_error(av, ac))
-		return (err_msg("Error, correct args would be : ./philo 5 100 800 600 [10]"), 1);
+		return (err_msg("Error, correct args would be\
+			: ./philo 5 100 800 600 [10]"), 1);
 	else
 	{
 		data = init_sim(ac, av);

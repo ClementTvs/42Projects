@@ -40,11 +40,11 @@ t_data	*init_data(int ac, char **av)
 t_fork	*init_forks(int philo_nbr)
 {
 	t_fork	*forks;
-	int	i;
-	
+	int		i;
+
 	forks = safe_malloc(sizeof(t_fork) * philo_nbr);
 	if (!forks)
-	return (NULL);
+		return (NULL);
 	i = 0;
 	while (i < philo_nbr)
 	{
@@ -58,7 +58,7 @@ t_fork	*init_forks(int philo_nbr)
 t_philo	*init_philos(t_data *data)
 {
 	t_philo	*philos;
-	int	i;
+	int		i;
 
 	philos = safe_malloc(sizeof(t_philo) * data->philo_nbr);
 	if (!philos)

@@ -16,11 +16,11 @@
 	is_sim_over - Check if the sim is over.
 
 	This function reads the shared variable 'data->end_sim' safely using
-	a mutex to avoid race conditions.It returns the current value of the simulation
-	end state.
+	a mutex to avoid race conditions.
+	It returns the current value of the simulation end state.
 
-	@param data: Pointer to the struct that contains the shared data, including the
-				 mutex and the simulation end flag.
+	@param data: Pointer to the struct that contains the shared data,
+		including the mutex and the simulation end flag.
 
 	@return true if the simulation has ended, false otherwise.
 */
@@ -49,7 +49,6 @@ void	print_status(t_philo *philo, char *status)
 	long	current_time;
 
 	current_time = get_time_in_ms() - philo->data->start_sim;
-
 	pthread_mutex_lock(&philo->data->print_mutex);
 	if (!is_sim_over(philo->data))
 		printf("%ld %d %s\n", current_time, philo->philo_id + 1, status);
@@ -58,8 +57,8 @@ void	print_status(t_philo *philo, char *status)
 
 void	take_forks(t_philo *philo)
 {
-	int	first_fork_id;
-	int	second_fork_id;
+	int		first_fork_id;
+	int		second_fork_id;
 	t_fork	*first_fork;
 	t_fork	*second_fork;
 
@@ -68,14 +67,12 @@ void	take_forks(t_philo *philo)
 	first_fork = philo->lfork;
 	second_fork = philo->rfork;
 	if (philo->data->philo_nbr == 1)
-    {
-        pthread_mutex_lock(&philo->lfork->fork);
-        print_status(philo, "has taken a fork");
-        while (!is_sim_over(philo->data))
-            usleep(1000);
-        pthread_mutex_unlock(&philo->lfork->fork);
-        return;
-    }
+	{
+		print_status(philo, "has taken a fork");
+		while (!is_sim_over(philo->data))
+			usleep(1000);
+		return ;
+	}
 	if (second_fork_id < first_fork_id)
 	{
 		first_fork = philo->rfork;
@@ -89,8 +86,8 @@ void	take_forks(t_philo *philo)
 
 void	release_forks(t_philo *philo)
 {
-	int	first_fork_id;
-	int	second_fork_id;
+	int		first_fork_id;
+	int		second_fork_id;
 	t_fork	*first_fork;
 	t_fork	*second_fork;
 
@@ -109,7 +106,7 @@ void	release_forks(t_philo *philo)
 
 void	*philo_routine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 	t_data	*data;
 
 	philo = (t_philo *)arg;
@@ -117,7 +114,7 @@ void	*philo_routine(void *arg)
 	sync_philos(data);
 	if (philo->philo_id % 2 == 0)
 		usleep(5000);
-	while(!is_sim_over(data))
+	while (!is_sim_over(data))
 	{
 		print_status(philo, "is thinking");
 		take_forks(philo);

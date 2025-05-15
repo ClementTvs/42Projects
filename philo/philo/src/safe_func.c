@@ -25,7 +25,7 @@ void	*safe_malloc(size_t bytes)
 	return (ptr);
 }
 
-int	safe_mutex_init(mtx_t *mutex)
+int	safe_mutex_init(t_mtx *mutex)
 {
 	if (pthread_mutex_init(mutex, NULL) != 0)
 	{

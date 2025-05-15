@@ -26,7 +26,8 @@ static bool	check_death(int i, bool *all_full, t_data *data)
 	if (!full && current_time - last_meal > data->time_to_die)
 	{
 		pthread_mutex_lock(&data->print_mutex);
-		printf("%ld %d died\n", current_time - data->start_sim, data->philos[i].philo_id + 1);
+		printf("%ld %d died\n", current_time - data->start_sim,
+			data->philos[i].philo_id + 1);
 		pthread_mutex_unlock(&data->print_mutex);
 		pthread_mutex_lock(&data->sim_mutex);
 		data->end_sim = true;
@@ -52,7 +53,7 @@ static bool	check_full(t_data *data, bool all_full)
 
 void	*monitor_routine(void *arg)
 {
-	t_data *data;
+	t_data	*data;
 	int		i;
 	bool	all_full;
 

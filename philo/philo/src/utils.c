@@ -70,10 +70,10 @@ void	free_data(t_data *data)
 
 void	sync_philos(t_data *data)
 {
-	while (1) 
+	while (1)
 	{
 		pthread_mutex_lock(&data->ready_mutex);
-		if (data->all_thread_rdy) 
+		if (data->all_thread_rdy)
 		{
 			pthread_mutex_unlock(&data->ready_mutex);
 			break ;

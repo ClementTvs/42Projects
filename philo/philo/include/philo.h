@@ -22,9 +22,9 @@
 #define GREEN "\033[1;92m"
 #define RST "\033[0m"
 
-typedef pthread_mutex_t mtx_t;
+typedef pthread_mutex_t	t_mtx;
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 /*
 This struct contains:
@@ -33,8 +33,8 @@ This struct contains:
 */
 typedef struct s_fork
 {
-	mtx_t	fork;
-	int	fork_id;
+	t_mtx	fork;
+	int		fork_id;
 }			t_fork;
 
 /*
@@ -50,16 +50,16 @@ This struct contains :
 	*/
 typedef struct s_philo
 {
-	int	philo_id;
-	long	meals_count;
-	bool	full;
-	long	last_meal_time;
-	t_fork	*lfork;
-	t_fork	*rfork;
-	mtx_t	meal_mutex;
+	int			philo_id;
+	long		meals_count;
+	bool		full;
+	long		last_meal_time;
+	t_fork		*lfork;
+	t_fork		*rfork;
+	t_mtx		meal_mutex;
 	pthread_t	thread_id;
-	t_data	*data;
-} t_philo;
+	t_data		*data;
+}	t_philo;
 
 /*
 This struct contains :
@@ -76,28 +76,29 @@ This struct contains :
 */
 struct s_data
 {
-	int	philo_nbr;
+	int		philo_nbr;
 	long	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	max_meals;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		max_meals;
 	long	start_sim;
 	bool	end_sim;
-	mtx_t	sim_mutex;
-	mtx_t	print_mutex;
-	mtx_t	ready_mutex;
+	t_mtx	sim_mutex;
+	t_mtx	print_mutex;
+	t_mtx	ready_mutex;
 	bool	all_thread_rdy;
 	t_fork	*forks;
 	t_philo	*philos;
 };
 
 void	err_msg(const char *str);
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 bool	check_error(char **av, int ac);
-int	error_syntax(char *str_n);
+int		error_syntax(char *str_n);
 void	*safe_malloc(size_t bytes);
-int	safe_mutex_init(mtx_t *mutex);
-int	safe_thread_create(pthread_t *thread, void *(*routine)(void *), void *arg);
+int		safe_mutex_init(t_mtx *mutex);
+int		safe_thread_create(pthread_t *thread,
+			void *(*routine)(void *), void *arg);
 t_data	*init_sim(int ac, char **av);
 t_data	*init_data(int ac, char **av);
 t_philo	*init_philos(t_data *data);
@@ -110,6 +111,5 @@ void	release_forks(t_philo *philo);
 void	take_forks(t_philo *philo);
 void	print_status(t_philo *philo, char *status);
 bool	is_sim_over(t_data *data);
-void    *monitor_routine(void *arg);
+void	*monitor_routine(void *arg);
 void	sync_philos(t_data *data);
-
