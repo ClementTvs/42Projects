@@ -124,7 +124,7 @@ void	*philo_routine(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&data->ready_mutex);
-		usleep(100);
+		usleep(1000);
 	}
 	if (philo->philo_id % 2 == 0)
 		usleep(5000);
