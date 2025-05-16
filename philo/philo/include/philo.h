@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:24:25 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/05/14 12:13:03 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/05/16 10:24:37 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,3 +113,4 @@ void	print_status(t_philo *philo, char *status);
 bool	is_sim_over(t_data *data);
 void	*monitor_routine(void *arg);
 void	sync_philos(t_data *data);
+void	make_philo_full(t_philo *philo);

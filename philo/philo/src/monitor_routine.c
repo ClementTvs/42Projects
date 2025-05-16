@@ -6,7 +6,7 @@
 /*   By: ctravers <ctravers@student.42perpignan.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:55:08 by ctravers          #+#    #+#             */
-/*   Updated: 2025/05/14 13:31:38 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/05/16 10:36:19 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static bool	check_death(int i, bool *all_full, t_data *data)
 
 	pthread_mutex_lock(&data->philos[i].meal_mutex);
 	last_meal = data->philos[i].last_meal_time;
-	pthread_mutex_unlock(&data->philos[i].meal_mutex);
 	full = data->philos[i].full;
+	pthread_mutex_unlock(&data->philos[i].meal_mutex);
 	current_time = get_time_in_ms();
 	if (!full && current_time - last_meal > data->time_to_die)
 	{

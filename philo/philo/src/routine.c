@@ -6,7 +6,7 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 10:16:38 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/05/14 12:44:15 by ctravers42       ###   ########.fr       */
+/*   Updated: 2025/05/16 10:51:39 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	*philo_routine(void *arg)
 		precise_sleep(data->time_to_eat);
 		philo->meals_count++;
 		if (data->max_meals != -1 && philo->meals_count >= data->max_meals)
-			philo->full = true;
+			make_philo_full(philo);
 		release_forks(philo);
 		print_status(philo, "is sleeping");
 		precise_sleep(data->time_to_sleep);

@@ -6,12 +6,19 @@
 /*   By: ctravers42 <ctravers@student.42perpignan.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:26:34 by ctravers42        #+#    #+#             */
-/*   Updated: 2025/05/07 17:31:59 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/05/16 10:52:50 by ctravers42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
+
+void	make_philo_full(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->full = true;
+	pthread_mutex_unlock(&philo->meal_mutex);
+}
 
 int	ft_atoi(const char *str)
 {
