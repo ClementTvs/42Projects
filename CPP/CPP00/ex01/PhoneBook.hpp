@@ -2,6 +2,8 @@
 #include <iostream>
 #include <iomanip>
 #include "Contact.hpp"
+#include <cctype>
+#include <sstream>
 
 class PhoneBook {
 	private:

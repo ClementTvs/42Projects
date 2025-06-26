@@ -2,6 +2,19 @@
 
 PhoneBook::PhoneBook() : nb_contact(0) {}
 
+int stringToInt(const std::string& str){
+	int	number = 0;
+	std::stringstream strs(str);
+	strs >> number;
+	return (number);
+}
+
+std::string truncate(std::string str){
+	if (str.length() > 10)
+		return (str.substr(0, 9) + ".");
+	return (str);
+}
+
 void PhoneBook::add_contact(){
 	std::string firstName;
 	std::string lastName;
@@ -18,6 +31,15 @@ void PhoneBook::add_contact(){
 	std::cin >> nickName;
 	std::cout << "What's your contact's phone number: ";
 	std::cin >> phoneNumber;
+	for (std::size_t i = 0; i < phoneNumber.length(); i++)
+	{
+		if (!std::isdigit(phoneNumber[i]))
+		{
+			std::cout << "Please enter a correct phone number, only numbers are allowed" << std::endl;
+			i = 0;
+			std::cin >> phoneNumber;
+		}
+	}
 	std::cout << "What's your contact's deepest secret: ";
 	std::cin >> darkestSecret;
 
@@ -31,16 +53,48 @@ void PhoneBook::add_contact(){
 }
 
 void PhoneBook::search_contact(){
-	std::cout << "Who's information do you want to check ?"
-	std::cout << std::setw(10) << "Index"
-	std::cout << std::setw(10) << "First Name"
-	std::cout << std::setw(10) << "Last Name"
-	std::cout << std::setw(10) << "NickName"
-	for (int i; i < nb_contact; i++;)
+	std::string	contactIndex;
+	int	index;
+	int displayCount;
+
+	std::cout << "Who's information do you want to check ?" << std::endl;
+	std::cout << std::setw(10) << "Index" << "|";
+	std::cout << std::setw(10) << "First Name" << "|";
+	std::cout << std::setw(10) << "Last Name" << "|";
+	std::cout << std::setw(10) << "NickName" << std::endl;
+	displayCount = nb_contact;
+	if (displayCount > 8)
 	{
-		std::cout << std::setw(10) << i;
-		std::cout << std::setw(10) << contact[i].firstName;
-		std::cout << std::setw(10) << contact[i].lastName;
-		std::cout << std::setw(10) << contact[i].nickName;
+		displayCount = 8;
 	}
+	for (int i = 0; i < displayCount; i++)
+	{
+		std::cout << std::setw(10) << i << "|";
+		std::cout << std::setw(10) << truncate(contact[i].getFirstName()) << "|";
+		std::cout << std::setw(10) << truncate(contact[i].getLastName()) << "|";
+		std::cout << std::setw(10) << truncate(contact[i].getNickName())
+				  << std::endl;
+	}
+	std::cout << "Please, enter the index of the contact's you want to check"
+			  << std::endl;
+	std::cin >> contactIndex;
+	for (std::size_t i = 0; i < contactIndex.length(); i++)
+	{
+		if (!std::isdigit(contactIndex[i]))
+		{
+			std::cout << "Incorrect index" << std::endl;
+			return;
+		}
+	}
+	index = stringToInt(contactIndex);
+	if (index < 0 || index >= displayCount)
+	{
+		std::cout << "This contact does not exist" << std::endl;
+		return;
+	}
+	std::cout << "First Name : " << contact[index].getFirstName() << std::endl
+			  << "Last Name : " << contact[index].getLastName() << std::endl
+			  << "Nickname : " << contact[index].getNickName() << std::endl
+			  << "Phone Number : " << contact[index].getPhoneNumber() << std::endl
+			  << "Darkest secret : " << contact[index].getDarkestSecret() << std::endl;
 }

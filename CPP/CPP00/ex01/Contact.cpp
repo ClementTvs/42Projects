@@ -14,7 +14,7 @@ void	Contact::setNickName(const std::string& nickName_){
 	nickName = nickName_;
 }
 
-void Contact::setPhoneNumber(const std::string& phoneNumber_){
+void	Contact::setPhoneNumber(const std::string& phoneNumber_){
 	phoneNumber = phoneNumber_;
 }
 
@@ -22,22 +22,22 @@ void Contact::setDarkestSecret(const std::string& darkestSecret_){
 	darkestSecret = darkestSecret_;
 }
 
-std::string& Contact::getFirstName() const {
+const std::string& Contact::getFirstName() const {
 	return (firstName);
 }
 
-std::string& Contact::getLastName() const {
+const std::string& Contact::getLastName() const {
 	return (lastName);
 }
 
-std::string& Contact::getNickName() const {
+const std::string& Contact::getNickName() const {
 	return (nickName);
 }
 
-std::string& Contact::getPhoneNumber() const {
-	return (getPhoneNumber);
+const std::string& Contact::getPhoneNumber() const {
+	return (phoneNumber);
 }
 
-std::string& Contact::getDarkestSecret() const {
+const std::string& Contact::getDarkestSecret() const {
 	return (darkestSecret);
 }
