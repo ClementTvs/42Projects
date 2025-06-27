@@ -23,25 +23,27 @@ void PhoneBook::add_contact(){
 	std::string darkestSecret;
 	int			index;
 
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "What's your contact's first name: ";
-	std::cin >> firstName;
+	std::getline(std::cin, firstName);
 	std::cout << "What's your contact's last name: ";
-	std::cin >> lastName;
+	std::getline(std::cin, lastName);
 	std::cout << "What's your contact's nickname: ";
-	std::cin >> nickName;
+	std::getline(std::cin, nickName);
 	std::cout << "What's your contact's phone number: ";
-	std::cin >> phoneNumber;
+	std::getline(std::cin, phoneNumber);
 	for (std::size_t i = 0; i < phoneNumber.length(); i++)
 	{
 		if (!std::isdigit(phoneNumber[i]))
 		{
 			std::cout << "Please enter a correct phone number, only numbers are allowed" << std::endl;
-			i = 0;
-			std::cin >> phoneNumber;
+			std::cout << "What's your contact's phone number: ";
+			std::getline(std::cin, phoneNumber);
+			i = -1;
 		}
 	}
 	std::cout << "What's your contact's deepest secret: ";
-	std::cin >> darkestSecret;
+	std::getline(std::cin, darkestSecret);
 
 	index = nb_contact % 8;
 	contact[index].setFirstName(firstName);
