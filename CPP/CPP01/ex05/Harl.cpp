@@ -6,7 +6,7 @@
 /*   By: ctravers <ctravers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:41:52 by ctravers          #+#    #+#             */
-/*   Updated: 2025/06/27 15:18:24 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:46:40 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void Harl::complain( std::string level ){
 			return ;
 		}
 	}
+	std::cout << "Invalid level." << std::endl;
+	return ;
 }
 
 void Harl::debug( void ){

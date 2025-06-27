@@ -6,7 +6,7 @@
 /*   By: ctravers <ctravers@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 15:09:42 by ctravers          #+#    #+#             */
-/*   Updated: 2025/06/27 15:18:19 by ctravers         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:47:14 by ctravers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ int main(){
 	harl.complain("INFO");
 	harl.complain("WARNING");
 	harl.complain("ERROR");
+	// harl.complain("UNKOWN");
 }
