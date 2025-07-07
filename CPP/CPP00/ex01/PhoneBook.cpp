@@ -23,7 +23,6 @@ void PhoneBook::add_contact(){
 	std::string darkestSecret;
 	int			index;
 
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "What's your contact's first name: ";
 	std::getline(std::cin, firstName);
 	std::cout << "What's your contact's last name: ";
@@ -79,7 +78,7 @@ void PhoneBook::search_contact(){
 	}
 	std::cout << "Please, enter the index of the contact's you want to check"
 			  << std::endl;
-	std::cin >> contactIndex;
+	getline(std::cin, contactIndex);
 	for (std::size_t i = 0; i < contactIndex.length(); i++)
 	{
 		if (!std::isdigit(contactIndex[i]))
