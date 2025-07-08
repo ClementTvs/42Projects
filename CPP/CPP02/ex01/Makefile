@@ -13,7 +13,7 @@ test:
 	@$(CC) $(CFLAGS) $(TEST) -o $(NAME)_test
 
 clean:
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(NAME)_test
 
 fclean: clean
 

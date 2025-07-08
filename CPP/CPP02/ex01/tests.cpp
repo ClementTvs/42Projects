@@ -59,5 +59,12 @@ int main(){
 	a = Fixed( 234.213f );
 	
 	assertFixedDefault(234, a.toInt(), "toInt() function");
+
+	std::cout << "___________________________________________\n\n" << "\033[1;36m" << "Test 9:\n\n" << "\033[0m";
+	a = Fixed( 234.5f );
+
+	std::cout << a << std::endl;
+	std::cout << "\033[32m" << "[OK] " << "<< operator" << "\033[0m" << std::endl;
+	
 	std::cout << "___________________________________________\n\n";
 }

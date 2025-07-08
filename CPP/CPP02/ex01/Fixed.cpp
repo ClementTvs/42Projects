@@ -51,3 +51,8 @@ float Fixed::toFloat( void ) const{
 int Fixed::toInt( void ) const{
 	return this->fixcomma >> 8;
 }
+
+std::ostream& operator<<(std::ostream& out, const Fixed& fixed){
+	out << fixed.toFloat();
+	return out;
+}
