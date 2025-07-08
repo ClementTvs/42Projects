@@ -14,8 +14,8 @@ public:
 	Fixed( const int nbr );
 	Fixed( const float flt );
 	~Fixed();
-	Fixed(const Fixed &fixcomma);
-	Fixed &operator=(const Fixed &);
+	Fixed(const Fixed &other);
+	Fixed &operator=(const Fixed &other);
 	int getRawBits( void ) const;
 	void setRawBits( int const raw );
 	float toFloat( void ) const;
