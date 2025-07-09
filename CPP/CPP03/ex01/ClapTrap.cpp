@@ -45,7 +45,7 @@ void	ClapTrap::attack(const std::string& target){
 				  << " attacks " << target
 				  << ", causing " << this->_attackDamage
 				  << " points of damage!" << std::endl;
-		this->rmEnergyPoints(1);
+		_energyPoints--;
 	}
 	else
 		std::cout << this->_name <<" has no more energy/hp left" << std::endl;
@@ -58,46 +58,10 @@ void	ClapTrap::beRepaired(unsigned int amount){
 		  << " is repairing himself for " << amount
 		  << " HP!" << std::endl;
 		this->_hitPoints += amount;
-		this->rmEnergyPoints(1);
+		_energyPoints--;
 	}
 	else
 		std::cout << this->_name <<" has no more energy/hp left" << std::endl;
-}
-
-int		ClapTrap::getAttackDamage( void ) const{
-	return this->_attackDamage;
-}
-
-int		ClapTrap::getHitPoints( void ) const{
-	return this->_hitPoints;
-}
-
-int		ClapTrap::getEnergyPoints( void ) const{
-	return this->_energyPoints;
-}
-
-const std::string& ClapTrap::getName( void ) const{
-	return this->_name;
-}
-
-void	ClapTrap::setEnergyPoints( int nbr ){
-	this->_energyPoints = nbr;
-}
-
-void	ClapTrap::setHitPoints( int nbr ){
-	this->_hitPoints = nbr;
-}
-
-void	ClapTrap::setAttackDamage( int nbr ){
-	this->_attackDamage = nbr;
-}
-
-void		ClapTrap::setName( const std::string& nameToSet ){
-	this->_name = nameToSet;
-}
-
-void	ClapTrap::rmEnergyPoints( int amount ){
-	this->_energyPoints -= amount;
 }
 
 void ClapTrap::checkStats( void ){

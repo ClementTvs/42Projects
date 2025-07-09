@@ -5,51 +5,43 @@ ScavTrap::ScavTrap() {
 }
 
 ScavTrap::~ScavTrap(){
-	std::cout << LYLW << "[debug] ScavTrap Destructor of " << this->getName() << " called" << RST << std::endl;
+	std::cout << LYLW << "[debug] ScavTrap Destructor of " << _name << " called" << RST << std::endl;
 }
 
-ScavTrap::ScavTrap( const std::string& name ){
+ScavTrap::ScavTrap( const std::string& name ): ClapTrap( name ){
 	std::cout << LYLW << "[debug] " << name << " came into the world safely.." << RST << std::endl;
-	this->setName(name);
-	this->setAttackDamage(20);
-	this->setEnergyPoints(50);
-	this->setHitPoints(100);
+	_name = name;
+	_attackDamage = 20;
+	_energyPoints = 50;
+	_hitPoints = 100;
 }
 
-ScavTrap::ScavTrap( const ScavTrap& other){
+ScavTrap::ScavTrap( const ScavTrap& other): ClapTrap(other) {
 	std::cout << LYLW << "[debug] ScavTrap copy constructor called" << RST << std::endl;
-	this->setName(other.getName());
-	this->setAttackDamage(other.getAttackDamage());
-	this->setEnergyPoints(other.getEnergyPoints());
-	this->setHitPoints(other.getHitPoints());
 }
 
-ScavTrap	&ScavTrap::operator=( const ScavTrap& other)
-{
+ScavTrap	&ScavTrap::operator=( const ScavTrap& other){
 	std::cout << LYLW << "[debug] ScavTrap assignement operator called" << RST << std::endl;
 	if (this != &other)
 	{
-		this->setName(other.getName());
-		this->setAttackDamage(other.getAttackDamage());
-		this->setEnergyPoints(other.getEnergyPoints());
-		this->setHitPoints(other.getHitPoints());
+		ClapTrap::operator=(other);
 	}
 	return *this;
 }
 
 void	ScavTrap::attack(const std::string& target){
-	if (this->getEnergyPoints() > 0)
+	if (_energyPoints > 0)
 	{
-		std::cout << "ScavTrap " << this->getName()
+		std::cout << "ScavTrap " << _name
 				  << " attacks " << target
-				  << ", causing " << this->getAttackDamage()
+				  << ", causing " << _attackDamage
 				  << " points of damage!" << std::endl;
-		this->rmEnergyPoints(1);
+		_energyPoints--;
 	}
 	else
-		std::cout << this->getName() <<" has no more energy left" << std::endl;
+		std::cout << _name <<" has no more energy left" << std::endl;
 }
 
 void	ScavTrap::guardGate(){
-	std::cout << this->getName() << " is now in Gate keeper mode" << std::endl;
+	std::cout << _name << " is now in Gate keeper mode" << std::endl;
 }
