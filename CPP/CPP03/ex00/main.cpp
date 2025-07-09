@@ -10,12 +10,20 @@ int main( void ){
 	printTest("Constructor test");
 	ClapTrap Joe("Joe");
 	printTest("Default constructor test");
-	ClapTrap Michel;
+	ClapTrap TheMostPowerfulMonsterOfThisUniverse;
+	TheMostPowerfulMonsterOfThisUniverse.checkStats();
 	printTest("Attack test");
 	Joe.attack("the most powerful monster of this universe");
 	printTest("Take damage test");
-	Michel.takeDamage(10);
+	TheMostPowerfulMonsterOfThisUniverse.takeDamage(0);
 	printTest("Repair test");
-	Michel.beRepaired(100000);
+	TheMostPowerfulMonsterOfThisUniverse.beRepaired(100000);
+	printTest("Copy constructor test");
+	ClapTrap John( TheMostPowerfulMonsterOfThisUniverse );
+	John.checkStats();
+	printTest("No more hp test");
+	TheMostPowerfulMonsterOfThisUniverse.takeDamage(110000);
+	TheMostPowerfulMonsterOfThisUniverse.checkStats();
+	TheMostPowerfulMonsterOfThisUniverse.attack("Jhon");
 	printTest("Destuctor");
 }
