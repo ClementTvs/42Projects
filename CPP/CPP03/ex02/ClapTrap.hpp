@@ -7,7 +7,7 @@
 # define RST "\033[0m"
 
 class ClapTrap{
-	private:
+	protected:
 		std::string _name;
 		int _hitPoints;
 		int _energyPoints;
@@ -21,14 +21,5 @@ class ClapTrap{
 	virtual void attack(const std::string& target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
-	const std::string& getName( void ) const;
-	int getHitPoints( void ) const;
-	int getEnergyPoints( void ) const;
-	int getAttackDamage( void ) const;
-	void setEnergyPoints( int nbr );
-	void setAttackDamage( int nbr );
-	void setHitPoints( int nbr );
-	void setName( const std::string& nameToSet );
-	void rmEnergyPoints( int amount );
 	void checkStats( void );
 };
