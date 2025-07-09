@@ -1,6 +1,6 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = Fixed
+NAME = Fixed2
 SRC = main.cpp Fixed.cpp
 
 all: $(NAME)
