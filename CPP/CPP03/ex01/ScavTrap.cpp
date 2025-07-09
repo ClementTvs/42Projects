@@ -5,11 +5,11 @@ ScavTrap::ScavTrap() {
 }
 
 ScavTrap::~ScavTrap(){
-	std::cout << LYLW << "[debug] ScavTrap destructor called" << RST << std::endl;
+	std::cout << LYLW << "[debug] ScavTrap Destructor of " << this->getName() << " called" << RST << std::endl;
 }
 
 ScavTrap::ScavTrap( const std::string& name ){
-	std::cout << LYLW << "[debug] ScavTrap constructor called" << RST << std::endl;
+	std::cout << LYLW << "[debug] " << name << " came into the world safely.." << RST << std::endl;
 	this->setName(name);
 	this->setAttackDamage(20);
 	this->setEnergyPoints(50);
@@ -17,15 +17,22 @@ ScavTrap::ScavTrap( const std::string& name ){
 }
 
 ScavTrap::ScavTrap( const ScavTrap& other){
-	(void)other;
 	std::cout << LYLW << "[debug] ScavTrap copy constructor called" << RST << std::endl;
+	this->setName(other.getName());
+	this->setAttackDamage(other.getAttackDamage());
+	this->setEnergyPoints(other.getEnergyPoints());
+	this->setHitPoints(other.getHitPoints());
 }
 
 ScavTrap	&ScavTrap::operator=( const ScavTrap& other)
 {
+	std::cout << LYLW << "[debug] ScavTrap assignement operator called" << RST << std::endl;
 	if (this != &other)
 	{
-		std::cout << "ScavTrap assignement operator called" << std::endl;
+		this->setName(other.getName());
+		this->setAttackDamage(other.getAttackDamage());
+		this->setEnergyPoints(other.getEnergyPoints());
+		this->setHitPoints(other.getHitPoints());
 	}
 	return *this;
 }
@@ -37,7 +44,7 @@ void	ScavTrap::attack(const std::string& target){
 				  << " attacks " << target
 				  << ", causing " << this->getAttackDamage()
 				  << " points of damage!" << std::endl;
-		this->setEnergyPoints(1);
+		this->rmEnergyPoints(1);
 	}
 	else
 		std::cout << this->getName() <<" has no more energy left" << std::endl;
