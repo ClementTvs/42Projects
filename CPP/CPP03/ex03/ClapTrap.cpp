@@ -9,7 +9,7 @@ ClapTrap::ClapTrap()
 ClapTrap::ClapTrap( const std::string& name )
 		:	_name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)	
 {
-	std::cout << YLW << "[debug] ClapTrap " << name << " came into the world safely.." << RST << std::endl;
+	std::cout << YLW << "[debug] ClapTrap " << _name << " came into the world safely.." << RST << std::endl;
 }
 
 ClapTrap::~ClapTrap(){

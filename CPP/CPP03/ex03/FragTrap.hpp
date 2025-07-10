@@ -10,4 +10,8 @@ class FragTrap : virtual public ClapTrap{
 	FragTrap( const FragTrap& other);
 	FragTrap &operator=( const FragTrap& other);
 	void highFiveGuys( void );
+	protected:
+	static int const _initHitPoints = 100;
+	static int const _initEnergyPoints = 100;
+	static int const _initAttackDamage = 30;
 };

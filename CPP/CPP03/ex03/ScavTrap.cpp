@@ -9,11 +9,11 @@ ScavTrap::~ScavTrap(){
 }
 
 ScavTrap::ScavTrap( const std::string& name ): ClapTrap( name ){
-	std::cout << LYLW << "[debug] ScavTrap" << name << " came into the world safely.." << RST << std::endl;
 	_name = name;
 	_attackDamage = 20;
 	_energyPoints = 50;
 	_hitPoints = 100;
+	std::cout << LYLW << "[debug] ScavTrap " << _name << " came into the world safely.." << RST << std::endl;
 }
 
 ScavTrap::ScavTrap( const ScavTrap& other): ClapTrap(other) {
@@ -45,3 +45,4 @@ void	ScavTrap::attack(const std::string& target){
 void	ScavTrap::guardGate(){
 	std::cout << _name << " is now in Gate keeper mode" << std::endl;
 }
+

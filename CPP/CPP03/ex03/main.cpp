@@ -49,13 +49,14 @@ int main( void ){
 	// Thing.checkStats();
 	// printTest("FragTrap high five test");
 	// Thing.highFiveGuys();
-	printTest("DiamondTrap Test");
+	// printTest("DiamondTrap Test");
 	DiamondTrap Harry("Harry");
-	DiamondTrap Mick( Harry );
-	Mick.guardGate();
+	// DiamondTrap Mick( Harry );
+	// Mick.guardGate();
 	Harry.checkStats();
 	Harry.guardGate();
 	Harry.attack("Michel");
 	Harry.highFiveGuys();
+	Harry.whoAmI();
 	printTest("Destuctor");
 }
