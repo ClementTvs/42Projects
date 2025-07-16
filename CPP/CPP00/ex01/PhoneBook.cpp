@@ -19,7 +19,8 @@ void checkStr(std::string& str){
 	while (str[0] == '\0')
 	{
 		std::cout << "Please, enter a correct information :" << std::endl;
-		std::getline(std::cin, str);
+		 if (!std::getline(std::cin, str))
+		 	return ;
 	}
 }
 
@@ -32,16 +33,20 @@ void PhoneBook::add_contact(){
 	int			index;
 
 	std::cout << "What's your contact's first name: ";
-	std::getline(std::cin, firstName);
+	if (!std::getline(std::cin, firstName))
+		return ;
 	checkStr(firstName);
 	std::cout << "What's your contact's last name: ";
-	std::getline(std::cin, lastName);
+	if (!std::getline(std::cin, lastName))
+	 	return ;
 	checkStr(lastName);
 	std::cout << "What's your contact's nickname: ";
-	std::getline(std::cin, nickName);
+	if (!std::getline(std::cin, nickName))
+		return ;
 	checkStr(nickName);
 	std::cout << "What's your contact's phone number: ";
-	std::getline(std::cin, phoneNumber);
+	if (!std::getline(std::cin, phoneNumber))
+		return ;
 	checkStr(phoneNumber);
 	for (std::size_t i = 0; i < phoneNumber.length(); i++)
 	{
@@ -49,15 +54,16 @@ void PhoneBook::add_contact(){
 		{
 			std::cout << "Please enter a correct phone number, only numbers are allowed" << std::endl;
 			std::cout << "What's your contact's phone number: ";
-			std::getline(std::cin, phoneNumber);
+			 if (!std::getline(std::cin, phoneNumber))
+			 	return ;
 			checkStr(phoneNumber);
 			i = -1;
 		}
 	}
 	std::cout << "What's your contact's deepest secret: ";
-	std::getline(std::cin, darkestSecret);
+	if (!std::getline(std::cin, darkestSecret))
+		return ;
 	checkStr(darkestSecret);
-
 	index = nb_contact % 8;
 	contact[index].setFirstName(firstName);
 	contact[index].setLastName(lastName);
@@ -92,7 +98,8 @@ void PhoneBook::search_contact(){
 	}
 	std::cout << "Please, enter the index of the contact's you want to check"
 			  << std::endl;
-	getline(std::cin, contactIndex);
+	if (!getline(std::cin, contactIndex))
+		return ;
 	for (std::size_t i = 0; i < contactIndex.length(); i++)
 	{
 		if (!std::isdigit(contactIndex[i]))
