@@ -100,6 +100,11 @@ void PhoneBook::search_contact(){
 			  << std::endl;
 	if (!getline(std::cin, contactIndex))
 		return ;
+	if (contactIndex == "")
+	{
+		std::cout << "You entered an empty index" << std::endl;
+		return ;
+	}
 	for (std::size_t i = 0; i < contactIndex.length(); i++)
 	{
 		if (!std::isdigit(contactIndex[i]))
