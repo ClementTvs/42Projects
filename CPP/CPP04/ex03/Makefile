@@ -1,7 +1,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = Interfaces
-SRC = main.cpp AMateria.cpp Cure.cpp Ice.cpp ICharacter.cpp Character.cpp IMateriaSource.cpp MateriaSource.cpp
+SRC = main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp  MateriaSource.cpp
 DEBUG_FLAGS = -g -DDEBUG
 
 all: $(NAME)

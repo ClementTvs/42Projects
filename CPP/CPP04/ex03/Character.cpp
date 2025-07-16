@@ -13,6 +13,11 @@ Character::Character(){
 
 
 Character::~Character(){
+	for (int i = 0; i < 4; i++)
+	{
+		if (_inventory[i] != 0)
+			delete _inventory[i];
+	}
 	#ifdef DEBUG
 		std::cout << "[debug] default character constructor called" << std::endl;
 	#endif
@@ -41,7 +46,7 @@ Character::Character( const Character& other ){
 	}
 }
 
-Character Character::operator=( const Character& other ){
+Character& Character::operator=( const Character& other ){
 	#ifdef DEBUG
 		std::cout << "[debug] Character assignement operator called" << std::endl;
 	#endif
@@ -73,10 +78,11 @@ void Character::equip(AMateria *m){
 		}
 	}
 	std::cout << _name << "'s inventory is full!" << std::endl;
+	delete m;
 }
 
 void Character::unequip(int idx){
-	if (idx < 4)
+	if (idx < 4 && _inventory[idx] != NULL)
 	{
 		_inventory[idx] = 0;
 		std::cout << _name << " has unequiped a materia!" << std::endl; 

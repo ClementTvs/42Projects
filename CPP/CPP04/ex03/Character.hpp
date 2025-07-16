@@ -10,7 +10,7 @@ class Character: public ICharacter{
 		Character( const std::string name );
 		~Character();
 		Character( const Character& other);
-		Character operator=( const Character& other);
+		Character& operator=( const Character& other);
 		void equip(AMateria* m);
 		void unequip(int idx);
 		void use(int idx, ICharacter& target);

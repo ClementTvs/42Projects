@@ -20,14 +20,16 @@ AMateria::~AMateria(){
 }
 
 AMateria::AMateria( const AMateria& other ){
-	(void)other;
+	_type = other._type;
 	#ifdef DEBUG
 		std::cout << "[debug] AMateria copy constructor called" << std::cout;	
 	#endif
 }
 
 AMateria &AMateria::operator=( const AMateria& other){
-	(void)other;
+	if (this != &other){
+		_type = other._type;
+	}
 	#ifdef DEBUG
 		std::cout << "[debug] AMateria assignement operator called" << std::cout;	
 	#endif
@@ -36,4 +38,8 @@ AMateria &AMateria::operator=( const AMateria& other){
 
 void AMateria::use( ICharacter& target){
 	(void)target;
+}
+
+std::string const& AMateria::getType() const{
+	return _type;
 }

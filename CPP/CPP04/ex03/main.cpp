@@ -11,36 +11,44 @@ void	printTest( const std::string testName ){
 
 }
 
-// void printResult(const std::string& testName, bool result){
-// 	if (result)
-// 		std::cout << GRN << "[TEST] " << testName << ": "
-// 				  << "✅ OK" << RST;
-// 	else
-// 		std::cout << RED << "[TEST] " << testName << ": "
-// 				  << "❌ KO" << RST;
-// 	std::cout << std::endl;
-// }
-
 int main(){
 	printTest("BASIC TESTS");
-	AMateria* cure = new Cure();
-	AMateria* ice = new Ice();
+	IMateriaSource* src = new MateriaSource();
+	src->learnMateria(new Ice());
+	src->learnMateria(new Cure());
 	ICharacter* me = new Character("me");
+
+	AMateria* materia0;
+	AMateria* materia1;
+	AMateria* materia2;
+	AMateria* materia3;
+	AMateria* materia4;
+	materia0 = src->createMateria("ice");
+	me->equip(materia0);
+	materia1 = src->createMateria("ca");
+	me->equip(materia1);
+	materia2 = src->createMateria("cure");
+	me->equip(materia2);
+	materia3 = src->createMateria("cure");
+	me->equip(materia3);
+	materia4 = src->createMateria("cure");
+	me->equip(materia4);
+
 	ICharacter* bob = new Character("bob");
 
-	me->equip(cure);
-	me->equip(cure);
-	me->equip(ice);
-	me->equip(ice);
-	me->equip(ice);
 
 	me->use(0, *bob);
+	me->use(1, *bob);
 	me->use(2, *bob);
+	me->use(3, *bob);
+	me->use(4, *bob);
 	me->unequip(2);
+	delete materia3;
+	materia3 = src->createMateria("cure");
+	me->equip(materia3);
 	me->use(2, *bob);
-	me->equip(ice);
+	std::cout << "Hi my name is " << bob->getName() << std::endl;
 	delete me;
-	delete cure;
-	delete ice;
+	delete src;
 	delete bob;
 }
