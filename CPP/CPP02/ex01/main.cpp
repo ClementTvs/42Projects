@@ -39,7 +39,8 @@ int	main( void ) {
 
 	std::cout << "___________________________________________\n\n";
 	std::cout << "\033[1;36m" << "Test 1:\n\n" << "\033[0m";
-	assertFixedDefault(0, a.getRawBits(), "Initial number");
+	Fixed m;
+	assertFixedDefault(0, m.getRawBits(), "Initial number");
 	
 	std::cout << "___________________________________________\n\n" << "\033[1;36m" << "Test 2:\n\n" << "\033[0m";
 	a = Fixed( 10.75f );
