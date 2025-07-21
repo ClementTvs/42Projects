@@ -21,16 +21,14 @@ Fixed::~Fixed(){
 
 Fixed::Fixed(const Fixed &other){
 	std::cout << YLW << "[debug]Copy constructor called" << RST << std::endl;
-	getRawBits();
-	this->fixcomma = other.fixcomma;
+	this->fixcomma = other.getRawBits();
 }
 
 Fixed& Fixed::operator=(const Fixed &other)
 {
 	std::cout << YLW << "[debug]Copy assignement operator called" << RST << std::endl;
 	if (this != &other){
-		getRawBits();
-		fixcomma = other.fixcomma;
+		fixcomma = other.getRawBits();
 	}
 	return *this;
 }
