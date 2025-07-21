@@ -5,7 +5,7 @@ DiamondTrap::DiamondTrap(){
 }
 
 DiamondTrap::~DiamondTrap(){
-	std::cout << MYLW << "[debug] FragTrap destructor for " << _name << " called" << RST << std::endl;
+	std::cout << MYLW << "[debug] DiamondTrap destructor for " << _name << " called" << RST << std::endl;
 }
 
 DiamondTrap::DiamondTrap( const std::string name ): ClapTrap( name + "_clap_name" ), FragTrap(name), ScavTrap(name  + "_clap_name") {
