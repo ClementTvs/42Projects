@@ -9,21 +9,29 @@ void	printTest( const std::string testName ){
 int main( void ){
 	printTest("Constructor test");
 	ClapTrap Joe("Joe");
-	printTest("Default constructor test");
-	ClapTrap TheMostPowerfulMonsterOfThisUniverse;
-	TheMostPowerfulMonsterOfThisUniverse.checkStats();
+	Joe.checkStats();
+
 	printTest("Attack test");
-	Joe.attack("the most powerful monster of this universe");
+	Joe.attack("Monster");
+
 	printTest("Take damage test");
-	TheMostPowerfulMonsterOfThisUniverse.takeDamage(0);
+	Joe.takeDamage(5);
+
 	printTest("Repair test");
-	TheMostPowerfulMonsterOfThisUniverse.beRepaired(100000);
+	Joe.beRepaired(10);
+
 	printTest("Copy constructor test");
-	ClapTrap John( TheMostPowerfulMonsterOfThisUniverse );
-	John.checkStats();
+	ClapTrap CopyJoe( Joe );
+	CopyJoe.checkStats();
+
+	printTest("Assignement operator test");
+	ClapTrap Another("Another");
+	Another = Joe;
+	Another.checkStats();
+
 	printTest("No more hp test");
-	TheMostPowerfulMonsterOfThisUniverse.takeDamage(110000);
-	TheMostPowerfulMonsterOfThisUniverse.checkStats();
-	TheMostPowerfulMonsterOfThisUniverse.attack("Jhon");
+	Joe.takeDamage(110000);
+	Joe.attack("Monster");
+
 	printTest("Destuctor");
 }

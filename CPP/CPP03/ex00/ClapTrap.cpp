@@ -35,7 +35,7 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 }
 
 void	ClapTrap::takeDamage(unsigned int amount){
-	std::cout << this->_name << " took " << amount << " points of damage!" << std::endl;
+	std::cout << "ClapTrap " << this->_name << " took " << amount << " points of damage!" << std::endl;
 	this->_hitPoints -= amount;
 }
 
