@@ -9,7 +9,7 @@ ScavTrap::~ScavTrap(){
 }
 
 ScavTrap::ScavTrap( const std::string& name ): ClapTrap( name ){
-	std::cout << LYLW << "[debug] " << name << " came into the world safely.." << RST << std::endl;
+	std::cout << LYLW << "[debug] ScavTrap " << name << " came into the world safely.." << RST << std::endl;
 	_name = name;
 	_attackDamage = 20;
 	_energyPoints = 50;

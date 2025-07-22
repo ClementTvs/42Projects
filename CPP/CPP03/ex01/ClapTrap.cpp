@@ -9,7 +9,7 @@ ClapTrap::ClapTrap()
 ClapTrap::ClapTrap( const std::string& name )
 		:	_name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)	
 {
-	std::cout << YLW << "[debug] " << name << " came into the world safely.." << RST << std::endl;
+	// std::cout << YLW << "[debug] " << name << " came into the world safely.." << RST << std::endl;
 }
 
 ClapTrap::~ClapTrap(){
@@ -31,7 +31,7 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 		:	_name(other._name), _hitPoints(other._hitPoints),
 			_energyPoints(other._energyPoints), _attackDamage(other._attackDamage)
 {
-	std::cout << YLW << "[debug] Copy constructor called" << RST << std::endl;
+	// std::cout << YLW << "[debug] Copy constructor called" << RST << std::endl;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount){
