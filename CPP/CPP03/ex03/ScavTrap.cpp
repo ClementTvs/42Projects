@@ -8,8 +8,7 @@ ScavTrap::~ScavTrap(){
 	std::cout << LYLW << "[debug] ScavTrap Destructor of " << _name << " called" << RST << std::endl;
 }
 
-ScavTrap::ScavTrap( const std::string& name ): ClapTrap( name ){
-	_name = name;
+ScavTrap::ScavTrap( const std::string& name ): ClapTrap(name){
 	_attackDamage = 20;
 	_energyPoints = 50;
 	_hitPoints = 100;

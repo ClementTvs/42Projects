@@ -8,9 +8,8 @@ FragTrap::~FragTrap(){
 	std::cout << PYLW << "[debug] FragTrap destructor for " << _name << " called" << RST << std::endl;
 }
 
-FragTrap::FragTrap( const std::string& name ): ClapTrap( name ){
+FragTrap::FragTrap( const std::string& name ): ClapTrap(name){
 	std::cout << PYLW << "[debug] FragTrap " << _name << " came into the world safely.." << RST << std::endl;
-	_name = name;
 	_hitPoints = 110;
 	_energyPoints = 100;
 	_attackDamage = 30;

@@ -8,21 +8,22 @@ DiamondTrap::~DiamondTrap(){
 	std::cout << MYLW << "[debug] DiamondTrap destructor for " << _name << " called" << RST << std::endl;
 }
 
-DiamondTrap::DiamondTrap( const std::string name ): ClapTrap( name + "_clap_name" ), FragTrap(name), ScavTrap(name  + "_clap_name") {
-	_name = name;
+DiamondTrap::DiamondTrap( const std::string name ): ClapTrap( name + "_clap_name" ), FragTrap(name), ScavTrap(name), _name(name){
 	_hitPoints = FragTrap::_initHitPoints;
 	_energyPoints = ScavTrap::_initEnergyPoints;
 	_attackDamage = FragTrap::_initAttackDamage;
 	std::cout << MYLW << "[debug] DiamondTrap " << _name << " came into the world safely.." << RST << std::endl;
 }
 
-DiamondTrap::DiamondTrap( const DiamondTrap& other): ClapTrap(other) {
+DiamondTrap::DiamondTrap( const DiamondTrap& other): ClapTrap(other), FragTrap(other), ScavTrap(other) {
+	_name = other._name;
 	std::cout << MYLW << "[debug] DiamondTrap copy constructor called" << RST << std::endl;
 }
 
 DiamondTrap& DiamondTrap::operator=( const DiamondTrap& other){
 	if (this != &other){
-		ClapTrap::operator=(other);
+		ScavTrap::operator=(other);
+		FragTrap::operator=(other);
 		_name = other._name;
 	}
 	return *this;
