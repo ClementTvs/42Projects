@@ -12,15 +12,16 @@ WrongCat::~WrongCat(){
 }
 
 WrongCat& WrongCat::operator=( const WrongCat& other){
-	(void)other;
 	#ifdef DEBUG
 		std::cout << YLW << "[debug] WrongCat assignement operator called" << RST << std::endl;
 	#endif
+	if (this != &other){
+		WrongAnimal::operator=(other);
+	}
 	return *this;
 }
 
-WrongCat::WrongCat( const WrongCat& other){
-	(void)other;
+WrongCat::WrongCat( const WrongCat& other): WrongAnimal::WrongAnimal(other) {
 	#ifdef DEBUG
 		std::cout << YLW << "[debug] WrongCat copy constructor called" << RST << std::endl;
 	#endif

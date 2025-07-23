@@ -4,11 +4,13 @@
 
 class Dog: public AAnimal{
 	private:
-	Brain* brain;
+		Brain* brain;
+
 	public:
-	Dog();
-	~Dog();
-	Dog( const Dog& other);
-	Dog& operator=( const Dog& other);
-	void makeSound() const;
+		Dog();
+		~Dog();
+		Dog( const Dog& other);
+		Dog& operator=( const Dog& other);
+
+		void makeSound() const;
 };

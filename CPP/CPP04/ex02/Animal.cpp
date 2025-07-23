@@ -12,18 +12,20 @@ AAnimal::~AAnimal(){
 }
 
 AAnimal& AAnimal::operator=( const AAnimal& other){
-	(void)other;
 	#ifdef DEBUG
-		std::cout << YLW << "[debug] AAnimal assignement operator called" << RST << std::endl;
+		std::cout << YLW << "[debug] Animal assignement operator called" << RST << std::endl;
 	#endif
+	if (this != &other){
+		type = other.type;
+	}
 	return *this;
 }
 
 AAnimal::AAnimal( const AAnimal& other){
-	(void)other;
 	#ifdef DEBUG
-		std::cout << YLW << "[debug] AAnimal copy constructor called" << RST << std::endl;
+		std::cout << YLW << "[debug] Animal copy constructor called" << RST << std::endl;
 	#endif
+	type = other.type;
 }
 
 void AAnimal::makeSound() const {

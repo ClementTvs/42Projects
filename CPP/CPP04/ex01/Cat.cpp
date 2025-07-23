@@ -16,7 +16,6 @@ Cat::~Cat(){
 Cat& Cat::operator=( const Cat& other){
 	if (this != &other){
 		Animal::operator=(other);
-		type = other.type;
 		delete brain;
 		brain = new Brain(*other.brain);
 	}
@@ -26,8 +25,7 @@ Cat& Cat::operator=( const Cat& other){
 	return *this;
 }
 
-Cat::Cat( const Cat& other){
-	type = other.type;
+Cat::Cat( const Cat& other): Animal::Animal( other ){
 	brain = new Brain(*other.brain);
 	#ifdef DEBUG
 		std::cout << YLW << "[debug] Cat copy constructor called" << RST << std::endl;

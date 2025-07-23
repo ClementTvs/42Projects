@@ -12,15 +12,16 @@ Cat::~Cat(){
 }
 
 Cat& Cat::operator=( const Cat& other){
-	(void)other;
 	#ifdef DEBUG
 		std::cout << YLW << "[debug] Cat assignement operator called" << RST << std::endl;
 	#endif
+	if (this != &other){
+		Animal::operator=(other);
+	}
 	return *this;
 }
 
-Cat::Cat( const Cat& other){
-	(void)other;
+Cat::Cat( const Cat& other): Animal::Animal(other) {
 	#ifdef DEBUG
 		std::cout << YLW << "[debug] Cat copy constructor called" << RST << std::endl;
 	#endif

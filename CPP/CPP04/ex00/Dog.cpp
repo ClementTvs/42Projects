@@ -12,15 +12,16 @@ Dog::~Dog(){
 }
 
 Dog& Dog::operator=( const Dog& other){
-	(void)other;
 	#ifdef DEBUG
 		std::cout << YLW << "[debug] Dog assignement operator called" << RST << std::endl;
 	#endif
+	if (this != &other){
+		Animal::operator=(other);
+	}
 	return *this;
 }
 
-Dog::Dog( const Dog& other){
-	(void)other;
+Dog::Dog( const Dog& other): Animal::Animal(other) {
 	#ifdef DEBUG
 		std::cout << YLW << "[debug] Dog copy constructor called" << RST << std::endl;
 	#endif

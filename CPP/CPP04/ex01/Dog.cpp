@@ -16,7 +16,6 @@ Dog::~Dog(){
 Dog& Dog::operator=( const Dog& other){
 	if (this != &other){
 		Animal::operator=(other);
-		type = other.type;
 		delete brain;
 		brain = new Brain(*other.brain);
 	}
@@ -26,8 +25,7 @@ Dog& Dog::operator=( const Dog& other){
 	return *this;
 }
 
-Dog::Dog( const Dog& other){
-	type = other.type;
+Dog::Dog( const Dog& other): Animal::Animal( other ){
 	brain = new Brain(*other.brain);
 	#ifdef DEBUG
 		std::cout << YLW << "[debug] Dog copy constructor called" << RST << std::endl;
