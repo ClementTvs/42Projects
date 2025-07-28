@@ -1,13 +1,14 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = Interfaces
-SRC = main.cpp Bureaucrat.cpp main.cpp
+NAME = Bureaucrat
+SRC = main.cpp Bureaucrat.cpp
 DEBUG_FLAGS = -g -DDEBUG
 
 all: $(NAME)
 
 $(NAME): $(SRC)
 	@$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+	@echo "Compiling with $(CFLAGS) flags"
 
 debug:
 	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(SRC) -o $(NAME)
