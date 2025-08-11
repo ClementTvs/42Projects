@@ -1,6 +1,6 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = Bureaucrat
+NAME = BureaucratAndForms
 SRC = main.cpp Bureaucrat.cpp Form.cpp
 DEBUG_FLAGS = -g -DDEBUG
 

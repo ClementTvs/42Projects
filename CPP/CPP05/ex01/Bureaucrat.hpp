@@ -6,6 +6,9 @@
 #else
 #define LOG_DEBUG(x)
 #endif
+#include "Form.hpp"
+
+class Form;
 
 class Bureaucrat{
 	private:
@@ -23,6 +26,7 @@ class Bureaucrat{
 		const std::string &getName() const;
 		void incrementGrade();
 		void decrementGrade();
+		void signForm( Form& form);
 
 		class GradeTooHighException: public std::exception{
 			public:

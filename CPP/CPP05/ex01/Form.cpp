@@ -8,7 +8,7 @@ Form::~Form(){
 	LOG_DEBUG("Form default destructor called");
 }
 
-Form::Form(const std::string& name, bool isSigned, int gradeToSign, int gradeToExec): _name(name), _signed(isSigned), _gradeToSign(gradeToSign), _gradeToExec(gradeToExec){
+Form::Form(const std::string& name, int gradeToSign, int gradeToExec): _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExec(gradeToExec){
 	LOG_DEBUG("Form constructor called");
 	if (gradeToSign < 1 || gradeToExec < 1)
 		throw GradeTooHighException();
@@ -16,17 +16,14 @@ Form::Form(const std::string& name, bool isSigned, int gradeToSign, int gradeToE
 		throw GradeTooLowException();
 }
 
-Form::Form(const Form& other): _name(other._name){
+Form::Form(const Form& other): _name(other._name), _gradeToSign(other._gradeToSign), _gradeToExec(other._gradeToExec){
 	LOG_DEBUG("Form copy constructor called");
-	_grade = other._grade;
 }
 
 Form& Form::operator=(const Form& other){
 	LOG_DEBUG("Form assignement operator called");
 	if (this != &other){
 		_signed = other._signed;
-		_gradeToSign = other._gradeToSign;
-		_gradeToExec = other._gradeToExec;
 	}
 	return *this;
 }
@@ -45,6 +42,17 @@ bool Form::getSigned() const {
 
 const std::string &Form::getName() const {
 	return this->_name;
+}
+
+bool Form::beSigned( Bureaucrat& bureaucrat ){
+	if (bureaucrat.getGrade() <= this->getGradeToSign())
+	{
+		_signed = true;
+		return true;
+	}
+	else
+		throw GradeTooLowException();
+	return false;
 }
 
 std::ostream& operator<<(std::ostream& out, const Form& Form)
