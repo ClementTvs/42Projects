@@ -3,21 +3,25 @@
 #include "ShruberryCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int main(){
 	try {
-		Bureaucrat b("b", 146);
-		Bureaucrat a( "a", 2 );
-		Bureaucrat c ( "c", 70);
-		ShruberryCreationForm SCF("howqeeqweqweqwe");
-		RobotomyRequestForm RRF("Robot");
-		PresidentialPardonForm PPF("Michel");
+		Bureaucrat a( "a", 1 );
+		Intern someRandomIntern;
+		AForm *rrf;
+		AForm *scf;
+		AForm *ppf;
 
-		// SCF.execute(a);
-		// RRF.execute(a);
-		// PPF.execute(a);
-		c.executeForm(PPF);
-		a.executeForm(PPF);
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		scf = someRandomIntern.makeForm("shruberry creation", "Michel");
+		ppf = someRandomIntern.makeForm("presidential pardon", "Jack");
+		a.executeForm(*rrf);
+		a.executeForm(*scf);
+		a.executeForm(*ppf);
+		delete rrf;
+		delete scf;
+		delete ppf;
 	} catch (const std::exception& e) {
 		std::cout << "Error : " << e.what() << std::endl;
 	}
