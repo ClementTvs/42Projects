@@ -16,6 +16,7 @@ int main(){
 		// SCF.execute(a);
 		// RRF.execute(a);
 		// PPF.execute(a);
+		c.executeForm(PPF);
 		a.executeForm(PPF);
 	} catch (const std::exception& e) {
 		std::cout << "Error : " << e.what() << std::endl;
