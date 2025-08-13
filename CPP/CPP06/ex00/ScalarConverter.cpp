@@ -54,19 +54,52 @@ inputType ScalarConverter::detectType(const std::string& input){
 	return INT_TYPE;
 }
 
+int ScalarConverter::stringToInt(const std::string& str){
+	std::stringstream sstr(str);
+	int value = 0;
+	sstr >> value;
+	return value;
+}
+
+float ScalarConverter::stringToFloat(const std::string& str){
+	std::stringstream sstr(str);
+	float value = 0.0f;
+	sstr >> value;
+	return value;
+}
+
+double ScalarConverter::stringToDouble(const std::string& str){
+	std::stringstream sstr(str);
+	double value = 0.0;
+	sstr >> value;
+	return value;
+}
+
 void ScalarConverter::convert(const std::string& data){
 	ScalarConverter converter;
 	if (converter.detectType(data) == CHAR_TYPE) {
-		std::cout << "char detected" << std::endl;
+		char c;
+		
+		c = data[0];
+		std::cout << c << std::endl;
 	}
 	else if (converter.detectType(data) == FLOAT_TYPE) {
-		std::cout << "float detected" << std::endl;
+		float f;
+
+		f = converter.stringToFloat(data);
+		std::cout << f << "f" << std::endl;
 	}
 	else if (converter.detectType(data) == INT_TYPE) {
-		std::cout << "int detected" << std::endl;
+		int i;
+
+		i = converter.stringToInt(data);
+		std::cout << i << std::endl;
 	}
 	else if (converter.detectType(data) == DOUBLE_TYPE) {
-		std::cout << "double detected" << std::endl;
+		double d;
+
+		d = converter.stringToDouble(data);
+		std::cout << d << std::endl;
 	}
 	else if (converter.detectType(data) == NAN_TYPE) {
 		std::cout << "nan detected" << std::endl;
