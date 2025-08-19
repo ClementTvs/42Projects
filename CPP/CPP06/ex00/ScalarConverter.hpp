@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-// #include <cctype>
 #include <string>
 #include <iomanip>
 #include <sstream>
@@ -11,6 +10,12 @@
 #endif
 
 enum inputType{ INT_TYPE, DOUBLE_TYPE, FLOAT_TYPE, CHAR_TYPE, INVALID_INPUT, NAN_TYPE};
+struct SpecialFloat {
+	std::string input;
+	std::string floatStr;
+	std::string doubleStr;
+};
+
 
 class ScalarConverter{
 	public:
