@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <limits.h>
 #include <sstream>
 #ifdef DEBUG
 #define LOG_DEBUG(x) std::cout << "[DEBUG] " << x << std::endl;
@@ -18,17 +19,17 @@ struct SpecialFloat {
 
 
 class ScalarConverter{
-	public:
+	private:
 		ScalarConverter();
 		~ScalarConverter();
 		ScalarConverter(const ScalarConverter& other);
 		ScalarConverter operator=(const ScalarConverter& other);
 
-		inputType detectType(const std::string& input);
-		int stringToInt(const std::string& str);
-		float stringToFloat(const std::string& str);
-		double stringToDouble(const std::string& str);
-
+		static inputType detectType(const std::string& input);
+		static int stringToInt(const std::string& str);
+		static float stringToFloat(const std::string& str);
+		static double stringToDouble(const std::string& str);
+	public:
 		static void convert(const std::string& data);
 };
 

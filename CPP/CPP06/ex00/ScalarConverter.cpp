@@ -76,7 +76,6 @@ double ScalarConverter::stringToDouble(const std::string& str){
 }
 
 void ScalarConverter::convert(const std::string& data){
-	ScalarConverter converter;
 	char c;
 	float f = 0.0f;
 	int i = 0;
@@ -90,7 +89,7 @@ void ScalarConverter::convert(const std::string& data){
         {"-inf", "-inff", "-inf"}
     };
 
-	if (converter.detectType(data) == CHAR_TYPE) {
+	if (detectType(data) == CHAR_TYPE) {
 		c = data[0];
 		f = static_cast<float>(c);
 		i = static_cast<int>(c);
@@ -101,12 +100,17 @@ void ScalarConverter::convert(const std::string& data){
 		std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
 		std::cout << "double : " << d << std::endl;
 	}
-	else if (converter.detectType(data) == FLOAT_TYPE) {
-		f = converter.stringToFloat(data);
+	else if (detectType(data) == FLOAT_TYPE) {
+		f = stringToFloat(data);
 		c = static_cast<char>(f);
 		i = static_cast<int>(f);
 		d = static_cast<double>(f);
-
+		
+		if (i >= INT_MAX || i <= INT_MIN)
+		{
+			std::cout << "Invalid size" << std::endl;
+			return ;
+		}
 		if (isprint(c))
 			std::cout << "char : '" << c << "'"<< std::endl;
 		else
@@ -115,12 +119,17 @@ void ScalarConverter::convert(const std::string& data){
 		std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
 		std::cout << "double : " << d  << std::endl;
 	}
-	else if (converter.detectType(data) == INT_TYPE) {
-		i = converter.stringToInt(data);
+	else if (detectType(data) == INT_TYPE) {
+		i = stringToInt(data);
 		c = static_cast<char>(i);
 		f = static_cast<float>(i);
 		d = static_cast<double>(i);
-
+		
+		if (i >= INT_MAX || i <= INT_MIN)
+		{
+			std::cout << "Invalid size" << std::endl;
+			return ;
+		}
 		if (isprint(c))
 			std::cout << "char : '" << c << "'"<< std::endl;
 		else
@@ -129,12 +138,17 @@ void ScalarConverter::convert(const std::string& data){
 		std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
 		std::cout << "double : " << d  << std::endl;
 	}
-	else if (converter.detectType(data) == DOUBLE_TYPE) {
-		d = converter.stringToDouble(data);
+	else if (detectType(data) == DOUBLE_TYPE) {
+		d = stringToDouble(data);
 		c = static_cast<char>(d);
 		f = static_cast<float>(d);
 		i = static_cast<int>(d);
 
+		if (i >= INT_MAX || i <= INT_MIN)
+		{
+			std::cout << "Invalid size" << std::endl;
+			return ;
+		}
 		if (isprint(c))
 			std::cout << "char : '" << c << "'"<< std::endl;
 		else
@@ -143,7 +157,7 @@ void ScalarConverter::convert(const std::string& data){
 		std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
 		std::cout << "double : " << d  << std::endl;
 	}
-	else if (converter.detectType(data) == NAN_TYPE) {
+	else if (detectType(data) == NAN_TYPE) {
 	    bool found = false;
 	    for (int i = 0; i < 6; ++i) {
 	        if (data == specials[i].input) {
