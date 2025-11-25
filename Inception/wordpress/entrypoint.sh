@@ -3,7 +3,6 @@ set -e
 
 echo "🚀 Configuration de WordPress..."
 
-# Attendre MariaDB
 echo "⏳ Attente de la base de données..."
 until mariadb -h"${WORDPRESS_DB_HOST}" -u"${WORDPRESS_DB_USER}" -p"${WORDPRESS_DB_PASSWORD}" -e "SELECT 1" >/dev/null 2>&1; do
     echo "⏳ MariaDB pas encore prêt..."
@@ -11,7 +10,6 @@ until mariadb -h"${WORDPRESS_DB_HOST}" -u"${WORDPRESS_DB_USER}" -p"${WORDPRESS_D
 done
 echo "✅ Base de données accessible !"
 
-# Télécharger WP-CLI si absent
 if [ ! -f /usr/local/bin/wp ]; then
     echo "📥 Installation de WP-CLI..."
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -19,9 +17,8 @@ if [ ! -f /usr/local/bin/wp ]; then
     mv wp-cli.phar /usr/local/bin/wp
 fi
 
-cd /var/www/html
+cd /home/ctravers/data
 
-# Créer wp-config.php
 if [ ! -f wp-config.php ]; then
     echo "📝 Création de wp-config.php..."
     wp config create \
@@ -33,7 +30,6 @@ if [ ! -f wp-config.php ]; then
     echo "✅ wp-config.php créé !"
 fi
 
-# Installer WordPress si pas déjà fait
 if ! wp core is-installed --allow-root 2>/dev/null; then
     echo "📦 Installation de WordPress..."
     wp core install \
@@ -45,7 +41,6 @@ if ! wp core is-installed --allow-root 2>/dev/null; then
         --allow-root
     echo "✅ WordPress installé !"
     
-    # Créer l'utilisateur supplémentaire
     if [ -n "${WP_USER}" ]; then
         echo "👤 Création de l'utilisateur ${WP_USER}..."
         wp user create "${WP_USER}" "${WP_USER_EMAIL}" \
@@ -59,7 +54,7 @@ else
 fi
 
 # Fixer les permissions
-chown -R www-data:www-data /var/www/html
+chown -R www-data:www-data /home/ctravers/data
 
 echo "🚀 Démarrage de PHP-FPM..."
 exec php-fpm8.2 -F
