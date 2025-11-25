@@ -1,5 +1,6 @@
 COMPOSE = docker compose
 ENV_FILE = .env
+DATA_DIR = /home/ctravers/data
 
 all: build up
 
@@ -9,11 +10,11 @@ check-env:
 		exit 1; \
 	fi
 
-build: check-env
+build: check-env create-dirs
 	@echo "🔨 Construction des images Docker..."
 	$(COMPOSE) build
 
-up: check-env
+up: check-env create-dirs
 	@echo "🚀 Démarrage des services..."
 	$(COMPOSE) up -d
 	@echo "✅ Services démarrés !"
@@ -31,6 +32,8 @@ fclean: down
 	@echo "💣 Suppression complète (containers, volumes, images)..."
 	$(COMPOSE) down -v --rmi all
 	docker system prune -af --volumes
+	@echo "🗑️  Suppression des données..."
+	@sudo rm -rf $(DATA_DIR)/mariadb $(DATA_DIR)/wordpress
 
 re: fclean all
 
@@ -50,4 +53,4 @@ logs-wordpress:
 logs-mariadb:
 	$(COMPOSE) logs -f mariadb
 
-.PHONY: all build up down clean fclean re logs status
+.PHONY: all build up down clean fclean re logs status create-dirs

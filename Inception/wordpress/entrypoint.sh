@@ -17,7 +17,7 @@ if [ ! -f /usr/local/bin/wp ]; then
     mv wp-cli.phar /usr/local/bin/wp
 fi
 
-cd /home/ctravers/data/wordpress
+cd /var/www/html
 
 if [ ! -f wp-config.php ]; then
     echo "📝 Création de wp-config.php..."
@@ -53,7 +53,7 @@ else
     echo "✅ WordPress déjà installé"
 fi
 
-chown -R www-data:www-data /home/ctravers/data/wordpress
+chown -R www-data:www-data /var/www/html
 
 echo "🚀 Démarrage de PHP-FPM..."
 

@@ -7,7 +7,7 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - wordpress_data:/home/ctravers/data/wordpress:ro
+      - wordpress_data:/var/www/html:ro
     restart: unless-stopped
     networks:
       - inception
@@ -33,7 +33,7 @@ services:
       WP_USER_EMAIL: ${WP_USER_EMAIL}
       WP_USER_PASSWORD: ${WP_USER_PASSWORD}
     volumes:
-      - wordpress_data:/home/ctravers/data/wordpress
+      - wordpress_data:/var/www/html
     restart: unless-stopped
     networks:
       - inception
@@ -47,7 +47,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - db_data:/home/ctravers/data/mariadb
+      - db_data:/var/lib/mysql
     restart: unless-stopped
     networks:
       - inception
