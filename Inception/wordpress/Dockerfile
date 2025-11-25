@@ -2,7 +2,7 @@ FROM debian:12-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV WORDPRESS_VERSION=6.7
-ENV WORDPRESS_PATH=/home/ctravers/data
+ENV WORDPRESS_PATH=/home/ctravers/data/wordpress
 
 RUN apt-get update && apt-get install -y \
     php-fpm \

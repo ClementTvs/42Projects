@@ -4,14 +4,14 @@ set -e
 echo "🚀 Initialisation de MariaDB..."
 
 # Initialiser la base de données si nécessaire
-if [ ! -d "/var/lib/mysql/mysql" ]; then
+if [ ! -d "/home/ctravers/data/mariadb/mysql" ]; then
     echo "📦 Installation de la base système..."
-    mysql_install_db --user=mysql --datadir=/var/lib/mysql
+    mysql_install_db --user=mysql --datadir=/home/ctravers/data/mariadb
 fi
 
 # Démarrer MariaDB en arrière-plan
 echo "🔧 Démarrage temporaire pour configuration..."
-mysqld --user=mysql --datadir=/var/lib/mysql --skip-networking &
+mysqld --user=mysql --datadir=/home/ctravers/data/mariadb --skip-networking &
 pid="$!"
 
 # Attendre que MySQL soit prêt (max 30 secondes)
@@ -39,4 +39,4 @@ mysqladmin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
 wait "$pid"
 
 echo "✅ Initialisation terminée. Démarrage en mode production..."
-exec mysqld --user=mysql --datadir=/var/lib/mysql --bind-address=0.0.0.0
+exec mysqld --user=mysql --datadir=/home/ctravers/data/mariadb --bind-address=0.0.0.0
