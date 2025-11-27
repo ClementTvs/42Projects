@@ -1,5 +1,5 @@
-COMPOSE = docker compose
-ENV_FILE = .env
+COMPOSE = docker compose -f srcs/docker-compose.yaml
+ENV_FILE = ./srcs/.env
 DATA_DIR = /home/ctravers/data
 
 all: build up

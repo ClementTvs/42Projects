@@ -1,6 +1,6 @@
 services:
   nginx:
-    build: ./nginx
+    build: ./requierements/nginx
     container_name: nginx
     ports:
       - "443:443"
@@ -13,7 +13,7 @@ services:
       - inception
 
   wordpress:
-    build: ./wordpress
+    build: ./requierements/wordpress
     container_name: wordpress
     depends_on:
       - mariadb
@@ -39,7 +39,7 @@ services:
       - inception
     
   mariadb:
-    build: ./mariadb
+    build: ./requierements/mariadb
     container_name: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
