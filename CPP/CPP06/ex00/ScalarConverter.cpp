@@ -21,7 +21,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other){
 	return *this;
 }
 
-inputType ScalarConverter::detectType(const std::string& input){
+static inputType detectType(const std::string& input){
 	if (input.empty())
 		return INVALID_INPUT;
 
@@ -64,21 +64,7 @@ inputType ScalarConverter::detectType(const std::string& input){
 	return INT_TYPE;
 }
 
-int ScalarConverter::stringToInt(const std::string& str){
-	std::stringstream sstr(str);
-	int value = 0;
-	sstr >> value;
-	return value;
-}
-
-float ScalarConverter::stringToFloat(const std::string& str){
-	std::stringstream sstr(str);
-	float value = 0.0f;
-	sstr >> value;
-	return value;
-}
-
-double ScalarConverter::stringToDouble(const std::string& str){
+static double stringToDouble(const std::string& str){
 	std::stringstream sstr(str);
 	double value = 0.0;
 	sstr >> value;
