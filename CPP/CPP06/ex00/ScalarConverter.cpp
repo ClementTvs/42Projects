@@ -1,4 +1,6 @@
 #include "ScalarConverter.hpp"
+#include <climits>
+#include <cmath>
 
 ScalarConverter::ScalarConverter(){
 	LOG_DEBUG("ScalarConverter default constructor called");
@@ -13,42 +15,50 @@ ScalarConverter::ScalarConverter(const ScalarConverter& other){
 	(void)other;
 }
 
-ScalarConverter ScalarConverter::operator=(const ScalarConverter& other){
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other){
 	LOG_DEBUG("ScalarConverter assignment operator called");
 	(void)other;
-	if (this != &other)
-	{}
 	return *this;
 }
 
 inputType ScalarConverter::detectType(const std::string& input){
-	bool hasPoint = false;
+	if (input.empty())
+		return INVALID_INPUT;
 
-	if (input.length() == 1 && !isdigit(input[0])){
+	if (input.length() == 1 && !isdigit(input[0]))
 		return CHAR_TYPE;
-	}
-	if (input == "nan" || input == "-inf" || input == "+inf" || input == "-inff" || input == "+inff" || input == "nanf")
+
+	if (input == "nan" || input == "-inf" || input == "+inf"
+		|| input == "-inff" || input == "+inff" || input == "nanf")
 		return NAN_TYPE;
-	for (size_t i = 0; i < input.length(); i++){
-		if ((input[0] == '-' || input[0] == '+') && i == 0)
-			i++;
+
+	bool hasPoint = false;
+	bool hasDigit = false;
+	size_t start = 0;
+
+	if (input[0] == '-' || input[0] == '+')
+		start = 1;
+	if (start >= input.length())
+		return INVALID_INPUT;
+
+	for (size_t i = start; i < input.length(); i++){
 		char c = input[i];
-		if (c == '.')
-		{
-			if (i != input.length() - 1)
-				hasPoint = true;
-			else
+		if (c == '.'){
+			if (hasPoint || i == input.length() - 1)
 				return INVALID_INPUT;
+			hasPoint = true;
 		}
-		else if (!isdigit(c)){
-			if (c == 'f' && i == input.length() - 1 && hasPoint)
+		else if (isdigit(c)){
+			hasDigit = true;
+		}
+		else{
+			if (c == 'f' && i == input.length() - 1 && hasPoint && hasDigit)
 				return FLOAT_TYPE;
-			else
-			{
-				return INVALID_INPUT;
-			}
+			return INVALID_INPUT;
 		}
 	}
+	if (!hasDigit)
+		return INVALID_INPUT;
 	if (hasPoint)
 		return DOUBLE_TYPE;
 	return INT_TYPE;
@@ -75,104 +85,67 @@ double ScalarConverter::stringToDouble(const std::string& str){
 	return value;
 }
 
-void ScalarConverter::convert(const std::string& data){
-	char c;
-	float f = 0.0f;
-	int i = 0;
-	double d = 0.0;
-    SpecialFloat specials[] = {
-        {"nanf", "nanf", "nan"},
-        {"nan",  "nanf",  "nan"},
-        {"+inff", "+inff", "+inf"},
-        {"-inff", "-inff", "-inf"},
-        {"+inf", "+inff", "+inf"},
-        {"-inf", "-inff", "-inf"}
-    };
-
-	if (detectType(data) == CHAR_TYPE) {
-		c = data[0];
-		f = static_cast<float>(c);
-		i = static_cast<int>(c);
-		d = static_cast<double>(c);
-
-		std::cout << "char : '" << c << "'"<< std::endl;
-		std::cout << "int : " << i << std::endl;
-		std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
-		std::cout << "double : " << d << std::endl;
-	}
-	else if (detectType(data) == FLOAT_TYPE) {
-		f = stringToFloat(data);
-		c = static_cast<char>(f);
-		i = static_cast<int>(f);
-		d = static_cast<double>(f);
-		
-		if (i >= INT_MAX || i <= INT_MIN)
-		{
-			std::cout << "Invalid size" << std::endl;
-			return ;
-		}
-		if (isprint(c))
-			std::cout << "char : '" << c << "'"<< std::endl;
-		else
-			std::cout << "char : non displayable" << std::endl;
-		std::cout << "int : " << i << std::endl;
-		std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
-		std::cout << "double : " << d  << std::endl;
-	}
-	else if (detectType(data) == INT_TYPE) {
-		i = stringToInt(data);
-		c = static_cast<char>(i);
-		f = static_cast<float>(i);
-		d = static_cast<double>(i);
-		
-		if (i >= INT_MAX || i <= INT_MIN)
-		{
-			std::cout << "Invalid size" << std::endl;
-			return ;
-		}
-		if (isprint(c))
-			std::cout << "char : '" << c << "'"<< std::endl;
-		else
-			std::cout << "char : non displayable" << std::endl;
-		std::cout << "int : " << i << std::endl;
-		std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
-		std::cout << "double : " << d  << std::endl;
-	}
-	else if (detectType(data) == DOUBLE_TYPE) {
-		d = stringToDouble(data);
-		c = static_cast<char>(d);
-		f = static_cast<float>(d);
-		i = static_cast<int>(d);
-
-		if (i >= INT_MAX || i <= INT_MIN)
-		{
-			std::cout << "Invalid size" << std::endl;
-			return ;
-		}
-		if (isprint(c))
-			std::cout << "char : '" << c << "'"<< std::endl;
-		else
-			std::cout << "char : non displayable" << std::endl;
-		std::cout << "int : " << i << std::endl;
-		std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
-		std::cout << "double : " << d  << std::endl;
-	}
-	else if (detectType(data) == NAN_TYPE) {
-	    bool found = false;
-	    for (int i = 0; i < 6; ++i) {
-	        if (data == specials[i].input) {
-	            found = true;
-	            std::cout << "char : impossible" << std::endl;
-	            std::cout << "int : impossible" << std::endl;
-	            std::cout << "float : " << specials[i].floatStr << std::endl;
-	            std::cout << "double : " << specials[i].doubleStr << std::endl;
-	            break;
-	        }
-	    }
-	}
+static void printChar(double d){
+	if (d < 0 || d > 127 || d != static_cast<int>(d))
+		std::cout << "char : impossible" << std::endl;
+	else if (!isprint(static_cast<int>(d)))
+		std::cout << "char : Non displayable" << std::endl;
 	else
-	{
+		std::cout << "char : '" << static_cast<char>(static_cast<int>(d)) << "'" << std::endl;
+}
+
+static void printInt(double d){
+	if (d > static_cast<double>(INT_MAX) || d < static_cast<double>(INT_MIN))
+		std::cout << "int : impossible" << std::endl;
+	else
+		std::cout << "int : " << static_cast<int>(d) << std::endl;
+}
+
+static void printFloat(double d){
+	float f = static_cast<float>(d);
+	std::cout << std::fixed << std::setprecision(1) << "float : " << f << "f" << std::endl;
+}
+
+static void printDouble(double d){
+	std::cout << std::fixed << std::setprecision(1) << "double : " << d << std::endl;
+}
+
+void ScalarConverter::convert(const std::string& data){
+	inputType type = detectType(data);
+
+	if (type == INVALID_INPUT){
 		std::cout << "Error, please enter a valid input" << std::endl;
+		return;
 	}
-	return ;
+
+	if (type == NAN_TYPE){
+		SpecialFloat specials[] = {
+			{"nanf", "nanf", "nan"},
+			{"nan",  "nanf", "nan"},
+			{"+inff", "+inff", "+inf"},
+			{"-inff", "-inff", "-inf"},
+			{"+inf", "+inff", "+inf"},
+			{"-inf", "-inff", "-inf"}
+		};
+		for (int i = 0; i < 6; ++i){
+			if (data == specials[i].input){
+				std::cout << "char : impossible" << std::endl;
+				std::cout << "int : impossible" << std::endl;
+				std::cout << "float : " << specials[i].floatStr << std::endl;
+				std::cout << "double : " << specials[i].doubleStr << std::endl;
+				return;
+			}
+		}
+	}
+
+	double d;
+	if (type == CHAR_TYPE)
+		d = static_cast<double>(data[0]);
+	else
+		d = stringToDouble(data);
+
+	printChar(d);
+	printInt(d);
+	printFloat(d);
+	printDouble(d);
 }

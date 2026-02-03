@@ -23,7 +23,7 @@ class ScalarConverter{
 		ScalarConverter();
 		~ScalarConverter();
 		ScalarConverter(const ScalarConverter& other);
-		ScalarConverter operator=(const ScalarConverter& other);
+		ScalarConverter& operator=(const ScalarConverter& other);
 
 		static inputType detectType(const std::string& input);
 		static int stringToInt(const std::string& str);
