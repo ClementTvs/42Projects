@@ -21,7 +21,7 @@ ScalarConverter ScalarConverter::operator=(const ScalarConverter& other){
 	return *this;
 }
 
-inputType ScalarConverter::detectType(const std::string& input){
+static inputType detectType(const std::string& input){
 	bool hasPoint = false;
 
 	if (input.length() == 1 && !isdigit(input[0])){
@@ -54,21 +54,25 @@ inputType ScalarConverter::detectType(const std::string& input){
 	return INT_TYPE;
 }
 
-int ScalarConverter::stringToInt(const std::string& str){
+static int stringToInt(const std::string& str){
 	std::stringstream sstr(str);
 	int value = 0;
 	sstr >> value;
 	return value;
 }
 
-float ScalarConverter::stringToFloat(const std::string& str){
-	std::stringstream sstr(str);
-	float value = 0.0f;
-	sstr >> value;
-	return value;
+static float stringToFloat(const std::string& str){
+    std::string clean = str;
+    if (clean[clean.length() - 1] == 'f')
+        clean = clean.substr(0, clean.length() - 1);
+    
+    std::stringstream sstr(clean);
+    float value = 0.0f;
+    sstr >> value;
+    return value;
 }
 
-double ScalarConverter::stringToDouble(const std::string& str){
+static double stringToDouble(const std::string& str){
 	std::stringstream sstr(str);
 	double value = 0.0;
 	sstr >> value;
@@ -158,10 +162,8 @@ void ScalarConverter::convert(const std::string& data){
 		std::cout << "double : " << d  << std::endl;
 	}
 	else if (detectType(data) == NAN_TYPE) {
-	    bool found = false;
 	    for (int i = 0; i < 6; ++i) {
 	        if (data == specials[i].input) {
-	            found = true;
 	            std::cout << "char : impossible" << std::endl;
 	            std::cout << "int : impossible" << std::endl;
 	            std::cout << "float : " << specials[i].floatStr << std::endl;
