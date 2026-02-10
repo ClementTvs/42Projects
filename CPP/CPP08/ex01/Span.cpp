@@ -19,7 +19,7 @@ Span& Span::operator=(const Span& other) {
 	return *this;
 }
 
-void Span::addNumber(unsigned int nb) {
+void Span::addNumber(int nb) {
 	if (this->size != numbers.size()) {
 		numbers.push_back(nb);
 	}
@@ -28,37 +28,27 @@ void Span::addNumber(unsigned int nb) {
 }
 
 int Span::longestSpan() {
-	int min = *numbers.begin();
-	int max = *numbers.begin();
-	
-	if (numbers.size() > 1) {
-		for (std::vector<int>::iterator it = numbers.begin(); it != numbers.end(); ++it) {
-			if (*it < min)
-				min = *it;
-			else if (*it > max)
-				max = *it;
-		}
-	}
-	else 
-		throw NoSpanFound();
-	return (max - min);
+    if (numbers.size() <= 1)
+        throw NoSpanFound();
+    
+    int min = *std::min_element(numbers.begin(), numbers.end());
+    int max = *std::max_element(numbers.begin(), numbers.end());
+    
+    return max - min;
 }
 
 int Span::shortestSpan() {
-	int shortestSpan = INT_MAX;
-	
-	if (numbers.size() > 1) {
-		for (std::vector<int>::iterator it = numbers.begin(); it != numbers.end(); ++it) {
-			for (std::vector<int>::iterator it2 = numbers.begin(); it2 != numbers.end(); ++it2)
-			{
-				if (*it - *it2 < shortestSpan && *it > *it2)
-					shortestSpan = *it - *it2;
-				else if (*it2 - *it < shortestSpan && *it2 > *it)
-					shortestSpan = *it2 - *it;
-			}
-		}
-	}
-	else 
-		throw NoSpanFound();
-	return (shortestSpan);
+    if (numbers.size() <= 1)
+        throw NoSpanFound();
+    
+    std::vector<int> sorted = numbers;
+    std::sort(sorted.begin(), sorted.end());
+    int shortest = INT_MAX;
+    for (size_t i = 1; i < sorted.size(); ++i) {
+        int diff = sorted[i] - sorted[i - 1];
+        if (diff < shortest)
+            shortest = diff;
+    }
+    
+    return shortest;
 }

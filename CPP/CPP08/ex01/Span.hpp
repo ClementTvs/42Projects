@@ -4,6 +4,7 @@
 #include <exception>
 #include <vector>
 #include <limits.h>
+#include <algorithm>
 
 class Span {
 	private:
@@ -17,7 +18,7 @@ class Span {
 		Span(const Span& other);
 		Span& operator=(const Span& other);
 
-		void addNumber(unsigned int nb);
+		void addNumber(int nb);
 		int shortestSpan();
 		int longestSpan();
 
