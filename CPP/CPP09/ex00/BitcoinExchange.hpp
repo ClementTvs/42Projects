@@ -4,6 +4,7 @@
 #include <sstream>
 #include <map>
 #include <fstream>
+#include <cstdlib>
 
 #define PRINT_ERROR(x) std::cerr << x << std::endl
 

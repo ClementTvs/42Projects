@@ -56,10 +56,6 @@ bool PMergeMe::checkArgs(int ac, char** av) {
             _deque.push_back(val);
         }
     }
-    if (hasDouble(_vector)) {
-        std::cerr << "Error: Have number in double" << std::endl;
-        return false;
-    }
     return true;
 }
 
@@ -81,17 +77,6 @@ std::vector<std::string> PMergeMe::split(char *str) {
         result.push_back(s);
     
     return result;
-}
-
-bool PMergeMe::hasDouble(const std::vector<int>& vector) {
-    for (size_t i = 0; i < vector.size(); ++i) {
-        int val = vector[i];
-        for (size_t j = 0; j < vector.size(); ++j) {
-            if (j != i && vector[j] == val)
-                return true;
-        }
-    }
-    return false;
 }
 
 

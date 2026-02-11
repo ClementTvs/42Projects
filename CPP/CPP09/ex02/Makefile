@@ -1,7 +1,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = PMergeMe
-SRC = main.cpp PMergeMe.cpp
+NAME = PmergeMe
+SRC = main.cpp PmergeMe.cpp
 
 all: $(NAME)
 

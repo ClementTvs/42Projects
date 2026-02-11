@@ -6,6 +6,7 @@
 #include <climits>
 #include <cstdlib>
 #include <ctime>
+#include <cstring>
 
 class PMergeMe {
 private:
@@ -26,7 +27,6 @@ private:
 
     std::vector<std::string> split(char *str);
     bool hasSpace(char *str);
-    bool hasDouble(const std::vector<int>& vector);
 
 public:
     PMergeMe();
