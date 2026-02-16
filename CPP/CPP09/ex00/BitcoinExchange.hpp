@@ -15,6 +15,8 @@ class BitcoinExchange {
     public:
         BitcoinExchange();
         ~BitcoinExchange();
+        BitcoinExchange(const BitcoinExchange& other);
+        BitcoinExchange& operator=(const BitcoinExchange& other);
         bool isDateValid(const std::string& date);
         bool isValueValid(const std::string& string, float& value);
         bool splitLine(const std::string& line, std::string& date, std::string& value);

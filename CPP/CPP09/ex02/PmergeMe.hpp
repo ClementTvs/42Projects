@@ -31,7 +31,9 @@ private:
 public:
     PMergeMe();
     ~PMergeMe();
-    
+    PMergeMe(const PMergeMe& other);
+    PMergeMe& operator=(const PMergeMe& other);
+
     bool checkArgs(int ac, char **av);
     void sort();
     void printBefore();

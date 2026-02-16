@@ -5,6 +5,23 @@ PMergeMe::PMergeMe() : _vectorTime(0), _dequeTime(0) {}
 
 PMergeMe::~PMergeMe() {}
 
+PMergeMe::PMergeMe(const PMergeMe& other) {
+    this->_vector = other._vector;
+    this->_deque = other._deque;
+    this->_vectorTime = other._vectorTime;
+    this->_dequeTime = other._dequeTime;
+}
+
+PMergeMe& PMergeMe::operator=(const PMergeMe& other) {
+    if (this != &other) {
+        this->_vector = other._vector;
+        this->_deque = other._deque;
+        this->_vectorTime = other._vectorTime;
+        this->_dequeTime = other._dequeTime;  
+    }
+    return *this;
+}
+
 int PMergeMe::convertToInt(const std::string& str) {
     char* end;
     long val = std::strtol(str.c_str(), &end, 10);
